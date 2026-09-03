@@ -4,6 +4,7 @@
 **Fuentes del backlog:** documentación local y respaldo histórico de Confluence
 **Tipo de proyecto:** Brownfield
 **Fecha:** 01/09/2026
+**Última comprobación contra Jira (CAQ-3):** 2026-09-02
 
 | Epic | Stories | Sin verificar | Estado de sincronización |
 | :--- | :---: | :---: | :--- |
