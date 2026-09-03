@@ -1,6 +1,7 @@
 ---
 name: documentar-historia
 description: Documenta una historia de usuario que ya está construida en la aplicación pero no existe como ticket ni como especificación, explorándola en el navegador y dejando la evidencia de lo observado. Úsala cuando el software exista y la documentación no, cuando haya que reconstruir el backlog de un proyecto heredado, cuando una historia esté marcada "Sin verificar", o cuando pidan "documentá esta pantalla", "armá la historia de lo que ya está hecho", "esto no está en Jira" o "andá a ver cómo funciona".
+allowed-tools: Bash(node ${CLAUDE_SKILL_DIR}/scripts/verificar-evidencia.js *)
 ---
 
 # Documentar una historia que ya está construida
@@ -8,6 +9,11 @@ description: Documenta una historia de usuario que ya está construida en la apl
 En un proyecto heredado el software llegó antes que el papel. La funcionalidad existe, la usan
 personas reales, y no hay ni ticket ni criterio de aceptación que diga qué se esperaba de ella.
 Esta skill escribe ese papel mirando la aplicación.
+
+**Tres archivos, y cada uno hace una cosa:** este lleva el procedimiento y el criterio;
+[`plantilla-historia.md`](plantilla-historia.md) lleva el formato exacto del entregable; y
+`scripts/verificar-evidencia.js` comprueba que lo escrito tenga respaldo. **El formato no se
+deduce y la evidencia no se declara: uno se copia, la otra se verifica.**
 
 El riesgo no es equivocarse en la redacción. Es este:
 
@@ -136,35 +142,45 @@ Y después cruzá las dos primeras columnas, porque **ahí está el valor de tod
 
 ## Paso 6 · Escribí el `story.md`
 
-En `.context/PBI/epics/[EPIC]/stories/STORY-[ID]-[nombre-kebab-case]/story.md`, con **el mismo
-formato que usa el resto de la fase de especificaciones** — leelo de los prompts de esa fase en
-lugar de inventarlo, para que las fases siguientes lo puedan consumir.
+En `.context/PBI/epics/[EPIC]/stories/STORY-[ID]-[nombre-kebab-case]/story.md`.
 
-Tres cosas propias de esta skill:
+**El formato está en [`plantilla-historia.md`](plantilla-historia.md), al lado de este archivo.
+Abrilo y copiá el esqueleto — no lo deduzcas ni lo rearmes de otros archivos.** Ahí están
+también las reglas de los cuatro campos que se llenan mal: el veredicto de `Implementación`, el
+modo de exploración, la sección de contraste y la tabla de Fuentes.
 
-**El veredicto**, en el encabezado:
+Lo único que va acá, porque es criterio y no formato:
 
-| Valor | Cuándo |
-| :--- | :--- |
-| `Implementada` | La recorriste entera y hace lo que la historia describe |
-| `Parcial` | Existe, pero le falta algo que los documentos declaran |
-| `No encontrada` | La buscaste y no está. **No es lo mismo que no existir**: decí dónde buscaste |
-| `Sin verificar` | No llegaste a mirarla. No la marques de otra forma para cerrar el archivo |
+> **El veredicto se elige por lo que recorriste, no por lo que viste de reojo.** `Implementada`
+> exige haber llegado al final del camino: que exista el botón no significa que el flujo
+> termine bien. Y si no lo miraste, `Sin verificar` — no hay ningún valor intermedio que
+> signifique *"me parece que anda"*.
 
-**La sección de contraste**, que es lo que ningún otro prompt produce:
+## Paso 7 · Comprobá la evidencia antes de cerrar
 
-```markdown
-## Comportamiento observado
-| Qué hace | Evidencia | Qué decía la documentación |
-| :--- | :--- | :--- |
-| [Comportamiento] | `evidence/[archivo].png` | [Cita, o **nada: ningún documento lo menciona**] |
+Corré el verificador sobre el archivo que acabás de escribir:
+
+```bash
+node scripts/verificar-evidencia.js .context/PBI/epics/[EPIC]/stories/[STORY]/story.md
 ```
 
-**Y las tres secciones de cierre** que la fase nunca omite: `## Fuentes`,
-`## Contradicciones detectadas` y `## Preguntas abiertas`. Si alguna queda vacía se escribe
-*"Ninguna detectada"*, no se borra.
+Recorre el `story.md`, junta cada afirmación marcada `Observado` y **comprueba que el archivo
+de captura exista de verdad**. No opina sobre el contenido: confirma que haya foto.
 
-## Paso 7 · Reportá y encadená
+| Lo que devuelve | Qué hacés |
+| :--- | :--- |
+| Una afirmación observada **sin captura** | Conseguí la evidencia, **o bajala a `Hipótesis`** y generá la pregunta abierta |
+| Una captura nombrada **que no está** | Ruta mal escrita, o la captura nunca se guardó. Arreglá lo que corresponda |
+| Capturas que **ninguna fila menciona** | No es error. Pero si documentan algo, ese algo todavía no está escrito |
+
+**No cierres el archivo con el verificador en rojo.** Si algo no tiene respaldo, se corrige el
+archivo — no se ignora la salida.
+
+> **Por qué esto lo hace un script y no yo.** Un archivo existe o no existe: no hay criterio,
+> no hay redacción, y la respuesta es la misma todas las veces. **Yo escribo lo que observé; el
+> script comprueba que haya foto. Una de las dos cosas se puede inventar; la otra no.**
+
+## Paso 8 · Reportá y encadená
 
 Decime, en la confirmación y no solo dentro del archivo:
 
@@ -174,6 +190,9 @@ Decime, en la confirmación y no solo dentro del archivo:
 - **Qué quedó sin mirar** y por qué.
 - **Si esto todavía no está en la herramienta de gestión**, decilo acá: el archivo local no
   avisa solo.
+- **Si el ticket tenía la etiqueta `sin-verificar` y el veredicto ya no es `Sin verificar`**,
+  avisame para sacarla. Es el único rastro de esto que ve el equipo en el tablero, y una
+  etiqueta que quedó vieja miente igual que un documento que quedó viejo.
 
 Y sugerí el paso siguiente: refinar la historia para pasarla a criterios de aceptación
 formales, que es el prompt de refinamiento de la fase de especificaciones.
