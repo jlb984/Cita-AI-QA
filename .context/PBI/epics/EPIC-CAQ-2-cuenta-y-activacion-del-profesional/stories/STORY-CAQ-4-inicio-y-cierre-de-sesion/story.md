@@ -3,8 +3,9 @@
 **ID:** CAQ-4
 **Epic:** CAQ-2
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira
-**Estado:** Refinado
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Refinamiento:** Refinado
+**Inspección QA:** Bloqueante
 
 ## Descripción
 
@@ -17,9 +18,9 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 | Independiente | Sí | Puede validarse con una cuenta profesional existente, sin depender de las funciones de agenda o reservas. |
 | Negociable | Sí | El objetivo de acceso seguro está definido; la navegación y la presentación de errores siguen siendo negociables. |
 | Valiosa | Sí | Permite al profesional acceder a su panel y finalizar el acceso cuando deja de utilizarlo. |
-| Estimable | No | No está acordado qué debe ocurrir con la navegación, el contenido visible y las rutas protegidas después del logout. |
+| Estimable | Sí | Las decisiones vigentes de Producto cierran los valores y resultados necesarios para estimar la Story. |
 | Pequeña | No | Reúne inicio de sesión, cierre de sesión y protección de rutas. Si la incertidumbre impide completarla, dividir en acceso autenticado y revocación de acceso. |
-| Testeable | No | El login y el mensaje genérico son verificables, pero no puede emitirse un veredicto sobre los escenarios posteriores al logout hasta confirmar su resultado esperado. |
+| Testeable | Sí | Los criterios incorporan resultados observables y valores aprobados para el release 1.1. |
 
 ## Criterios de Aceptación (Gherkin)
 
@@ -53,17 +54,21 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 
 **And** no indica cuál de las credenciales falló
 
-### Escenario 4: Intento sin una de las credenciales
-
-**Given** que el profesional deja vacío el correo electrónico o la contraseña
-
+### Escenario 4: Intento sin correo electrónico
+**Given** que el profesional deja vacío el correo electrónico
 **When** intenta iniciar sesión
-
 **Then** el sistema no inicia la sesión
-
+**And** muestra «Ingresa tu correo y contraseña.»
 **And** no permite acceder al dashboard
 
-### Escenario 5: Acceso al dashboard con una sesión válida
+### Escenario 5: Intento sin contraseña
+**Given** que el profesional deja vacía la contraseña
+**When** intenta iniciar sesión
+**Then** el sistema no inicia la sesión
+**And** muestra «Ingresa tu correo y contraseña.»
+**And** no permite acceder al dashboard
+
+### Escenario 6: Acceso al dashboard con una sesión válida
 
 **Given** que el profesional tiene una sesión válida
 
@@ -71,7 +76,7 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 
 **Then** el sistema muestra únicamente el contenido correspondiente a su cuenta
 
-### Escenario 6: Cierre de una sesión activa
+### Escenario 7: Cierre de una sesión activa
 
 **Given** que el profesional tiene una sesión activa
 
@@ -81,7 +86,7 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 
 **And** la navegación deja de presentar las opciones exclusivas de una sesión activa
 
-### Escenario 7: Acceso directo al dashboard sin sesión
+### Escenario 8: Acceso directo al dashboard sin sesión
 
 **Given** que el profesional no tiene una sesión activa
 
@@ -91,7 +96,7 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 
 **And** no expone contenido correspondiente a la cuenta profesional
 
-### Escenario 8: Reingreso a una ruta protegida después del logout
+### Escenario 9: Reingreso a una ruta protegida después del logout
 
 **Given** que el profesional cerró su sesión
 
@@ -101,6 +106,36 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 
 **And** no expone contenido correspondiente a la sesión finalizada
 
+### Escenario 10: Cerrar sesión en todas las pestañas del navegador
+**Given** que el profesional tiene una sesión activa en dos pestañas del mismo navegador
+**When** selecciona «Salir» en una de ellas
+**Then** el sistema invalida la sesión actual en ambas pestañas
+**And** elimina los datos privados de memoria y caché
+**And** redirige a /login
+
+### Escenario 11: Mantener las sesiones de otros dispositivos
+**Given** que el profesional tiene sesiones válidas en dos dispositivos
+**When** cierra la sesión en uno de ellos
+**Then** el sistema invalida únicamente la sesión del dispositivo actual
+**And** mantiene activa la sesión del otro dispositivo
+
+### Escenario 12: Aplicar el bloqueo temporal de acceso
+**Given** que una combinación de cuenta e IP acumula cinco intentos fallidos dentro de quince minutos
+**When** se intenta iniciar sesión nuevamente durante los quince minutos siguientes
+**Then** el sistema rechaza temporalmente el intento
+**And** mantiene una respuesta genérica que no revela si la cuenta existe
+
+## Decisiones de Producto incorporadas
+
+Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-4 y decisiones transversales aplicables.
+
+* El logout invalida la sesión actual, limpia de memoria y caché todos los datos privados y redirige inmediatamente a `/login`.
+* La invalidación se propaga a todas las pestañas del mismo navegador. Las sesiones de otros dispositivos permanecen activas; cerrar todas las sesiones será una acción separada futura.
+* Cualquier ruta `/dashboard/*` sin sesión válida redirige a `/login` y no entrega datos privados desde la API.
+* Campo faltante: `Ingresa tu correo y contraseña.` Credenciales incorrectas: `Email o contraseña incorrectos.`
+* Después de 5 intentos fallidos dentro de 15 minutos, se bloquean nuevos intentos durante 15 minutos por combinación de cuenta e IP. La respuesta continúa siendo genérica para no revelar cuentas existentes.
+* El renderizado observado después del logout se considera defecto hasta demostrar que no existe exposición. Desarrollo debe investigar routing, caché, renderizado y autorización de API; la causa no puede decidirse desde Producto.
+
 ## Notas de QA
 
 * Ejecutar los intentos con correo incorrecto y contraseña incorrecta por separado para comprobar que ambos devuelven el mismo mensaje genérico.
@@ -108,6 +143,12 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 * Comprobar el cierre de sesión en la pestaña actual y el efecto sobre otras pestañas abiertas, sin asumir el resultado hasta que producto responda la pregunta abierta.
 * No usar credenciales ni información personal reales; el único entorno documentado es producción y no está autorizado modificar datos durante este refinamiento.
 * La implementación continúa `Sin verificar`; los datos observados documentan una brecha, pero este refinamiento no comprueba que siga vigente.
+
+## Inspección Shift-Left
+
+**Resultado:** Bloqueante
+
+**Reporte:** `.context/testing/inspections/inspeccion-CAQ-4.md`
 
 ## Fuentes
 
@@ -119,16 +160,13 @@ Como profesional, quiero iniciar sesión con mi correo electrónico y contraseñ
 | Una sesión válida permitió iniciar sesión y acceder a `/dashboard` | **Observado** — producción, 30/08/2026. Evidencia: `.context/architecture/prd.md` · Feature 1 y Fuentes |
 | «Salir» cambió la navegación a las opciones de usuario no autenticado | **Observado** — producción, 30/08/2026. Evidencia: `.context/architecture/prd.md` · Seguridad observada |
 | Después del logout, `/dashboard`, `/dashboard/availability` y `/dashboard/clients` continuaron renderizando sus pantallas | **Observado** — producción, 30/08/2026. Evidencia: `.context/architecture/prd.md` · Seguridad observada y Fuentes |
-| Sin sesión o después del logout, las rutas protegidas deben impedir el acceso y no exponer contenido de la cuenta | **Hipótesis** — el dashboard está documentado como protegido, pero no existe una decisión funcional explícita sobre el resultado posterior al logout |
+| Sin sesión o después del logout, las rutas protegidas deben impedir el acceso y no exponer contenido de la cuenta | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-4 |
+| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-4 |
 
 ## Contradicciones detectadas
 
-* La especificación y las notas técnicas presentan el dashboard como protegido por sesión y middleware; la observación de producción del 30/08/2026 registró que tres rutas continuaron renderizando sus pantallas después del logout. No se determinó si se trató de contenido residual, caché o autorización incompleta. Se conserva la protección como comportamiento esperado bajo hipótesis y la implementación permanece `Sin verificar`.
+* La especificación y la decisión de Producto exigen proteger /dashboard/*, limpiar los datos privados y redirigir a /login; producción permitió renderizar rutas después del logout el 30/08/2026. El requisito queda definido y la discrepancia pasa a investigación técnica.
 
 ## Preguntas abiertas
 
-* ¿Después del logout el sistema debe redirigir inmediatamente al login, mostrar otra pantalla o permanecer en la ruta actual sin contenido privado?
-* ¿Qué contenido debe eliminarse inmediatamente de la interfaz y de la caché del navegador al cerrar sesión?
-* ¿El logout debe invalidar simultáneamente la sesión en todas las pestañas y dispositivos o únicamente en el contexto actual?
-* ¿Qué mensaje debe mostrarse cuando falta el correo electrónico o la contraseña?
-* ¿Debe bloquearse temporalmente una cuenta después de varios intentos fallidos? En caso afirmativo, ¿después de cuántos intentos y durante cuánto tiempo?
+* ¿La exposición observada después del logout se debe a routing, caché, renderizado o autorización incompleta de la API?

@@ -3,8 +3,9 @@
 **ID:** CAQ-5
 **Epic:** CAQ-2
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira
-**Estado:** Refinado
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Refinamiento:** Refinado
+**Inspección QA:** Aprobado
 
 ## Descripción
 
@@ -17,7 +18,7 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 | Independiente | Sí | Puede validarse con cuentas existentes y no existentes sin depender de las funciones de agenda o reservas. |
 | Negociable | Sí | El objetivo de recuperación segura y no enumerativa está definido; la presentación y los controles adicionales siguen siendo negociables. |
 | Valiosa | Sí | Permite recuperar el acceso sin intervención manual y protege la existencia de las cuentas. |
-| Estimable | No | Faltan decisiones sobre la política de la nueva contraseña, los mensajes para enlaces inválidos y los límites de solicitudes repetidas. |
+| Estimable | Sí | Las decisiones vigentes de Producto cierran los valores y resultados necesarios para estimar la Story. |
 | Pequeña | Sí | Comprende un único flujo de recuperación compuesto por solicitud, recepción del enlace y cambio de contraseña. |
 | Testeable | Sí | La respuesta no enumerativa, la vigencia de una hora, el uso único y el cambio de contraseña pueden comprobarse con buzones y cuentas de prueba. |
 
@@ -43,17 +44,19 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 
 **And** la respuesta visible no revela que el correo no está registrado
 
-### Escenario 3: Solicitud sin un correo válido
-
-**Given** que el usuario deja vacío el correo o informa un valor con formato inválido
-
+### Escenario 3: Solicitud con correo vacío
+**Given** que el usuario deja vacío el correo
 **When** intenta solicitar la recuperación
-
 **Then** el sistema no procesa la solicitud
+**And** muestra «Ingresa un correo electrónico válido.»
 
-**And** solicita que se informe un correo electrónico válido
+### Escenario 4: Solicitud con formato de correo inválido
+**Given** que el usuario informa un correo con formato inválido
+**When** intenta solicitar la recuperación
+**Then** el sistema no procesa la solicitud
+**And** muestra «Ingresa un correo electrónico válido.»
 
-### Escenario 4: Cambio de contraseña con un token vigente
+### Escenario 5: Cambio de contraseña con un token vigente
 
 **Given** que el profesional abre un enlace de recuperación no utilizado antes de que transcurra una hora desde su emisión
 
@@ -63,7 +66,7 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 
 **And** permite recuperar el acceso con la nueva contraseña
 
-### Escenario 5: Intento con un token vencido
+### Escenario 6: Intento con un token vencido
 
 **Given** que transcurrió una hora o más desde la emisión del token de recuperación
 
@@ -73,7 +76,7 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 
 **And** no modifica la contraseña de la cuenta
 
-### Escenario 6: Reutilización de un token
+### Escenario 7: Reutilización de un token
 
 **Given** que el token de recuperación ya fue utilizado para cambiar la contraseña
 
@@ -83,6 +86,50 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 
 **And** no modifica la contraseña de la cuenta
 
+### Escenario 8: Invalidar enlaces anteriores
+**Given** que existe un enlace de recuperación todavía vigente
+**When** el profesional solicita un nuevo enlace
+**Then** el sistema invalida todos los enlaces anteriores de esa cuenta
+**And** solo el enlace más reciente puede utilizarse
+
+### Escenario 9: Rechazar la reutilización de contraseña
+**Given** que el profesional abre un enlace de recuperación válido
+**When** informa la misma contraseña que tenía antes
+**Then** el sistema rechaza el cambio
+**And** muestra la política de contraseña vigente
+
+### Escenario 10: Limitar solicitudes repetidas por correo
+**Given** que un correo ya realizó cinco solicitudes durante una hora
+**When** se realiza una solicitud adicional
+**Then** el sistema mantiene la respuesta no enumerativa
+**And** no envía otro correo
+
+### Escenario 11: Limitar solicitudes repetidas por IP
+**Given** que una IP ya realizó cinco solicitudes durante una hora
+**When** se realiza una solicitud adicional desde esa IP
+**Then** el sistema mantiene la respuesta no enumerativa
+**And** no envía otro correo
+
+### Escenario 12: Finalizar una recuperación exitosa
+**Given** que el profesional establece una contraseña nueva válida
+**When** el sistema confirma el cambio
+**Then** invalida las sesiones existentes
+**And** redirige a /login
+**And** no inicia una sesión automáticamente
+
+## Decisiones de Producto incorporadas
+
+Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 y decisiones transversales aplicables.
+
+* La nueva contraseña usa exactamente la política de CAQ-3 y no puede ser igual a la contraseña anterior.
+* Una nueva solicitud invalida todos los enlaces de recuperación anteriores de esa cuenta.
+* Se permiten hasta 5 solicitudes por correo y por IP en una hora. Al alcanzar el límite se conserva la respuesta no enumerativa y no se envía otro correo.
+* Mensajes aprobados:
+  * Solicitud aceptada o correo inexistente: `Si el email existe en nuestro sistema, recibirás un enlace para recuperar tu contraseña.`
+  * Correo inválido: `Ingresa un correo electrónico válido.`
+  * Token inválido, vencido o usado: `Este enlace ya no es válido. Solicita uno nuevo.`
+* Después del cambio exitoso se invalidan las sesiones existentes y se redirige al login. No se inicia sesión automáticamente.
+
 ## Notas de QA
 
 * Usar una cuenta existente y un correo no registrado bajo control del equipo; comparar que ambos casos presenten exactamente el mismo mensaje visible.
@@ -91,6 +138,12 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 * Verificar que el correo de recuperación pertenece al flujo de autenticación gestionado por Supabase y no a los correos de producto enviados mediante Resend.
 * No utilizar cuentas, correos ni credenciales reales; el único entorno documentado es producción y este refinamiento no autoriza generar correos ni modificar contraseñas allí.
 * La implementación continúa `Sin verificar`; el uso de PKCE y la vigencia documentada no prueban el comportamiento actual.
+
+## Inspección Shift-Left
+
+**Resultado:** Aprobado
+
+**Reporte:** `.context/testing/inspections/inspeccion-CAQ-5.md`
 
 ## Fuentes
 
@@ -102,16 +155,13 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 | El enlace contiene un token de un solo uso que vence a la hora | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.3; `.context/Confluence-corporativo/04-notas-tecnicas.md` · Auth |
 | El flujo de cambio de contraseña utiliza PKCE | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Auth |
 | Los correos de recuperación pertenecen a autenticación y permanecen en Supabase | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · correo del 28/02/2026 |
-| Rechazar una solicitud cuando el correo está vacío o tiene formato inválido | **Hipótesis** — no hay documento que defina la validación ni su mensaje para este formulario |
+| Rechazar una solicitud cuando el correo está vacío o tiene formato inválido | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 |
+| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 |
 
 ## Contradicciones detectadas
 
-* Ninguna detectada. La decisión posterior de mantener los correos de autenticación en Supabase es compatible con la especificación funcional del enlace de recuperación.
+* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
 
 ## Preguntas abiertas
 
-* ¿Qué reglas debe cumplir la nueva contraseña y son exactamente las mismas que se aplican durante el registro?
-* ¿Qué mensajes deben mostrarse cuando el correo está vacío o tiene formato inválido, y cuando el token está vencido, ya fue utilizado o es inválido?
-* ¿Una nueva solicitud invalida los enlaces de recuperación emitidos anteriormente para la misma cuenta?
-* ¿Existe un límite de solicitudes por correo, dirección IP o período? En caso afirmativo, ¿cuál es el comportamiento al alcanzarlo?
-* ¿Después del cambio exitoso se inicia sesión automáticamente o el profesional debe volver al login?
+* Ninguna pendiente de decisión funcional.

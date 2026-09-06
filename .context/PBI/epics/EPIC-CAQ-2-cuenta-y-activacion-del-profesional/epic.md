@@ -1,7 +1,7 @@
 # Epic: [Epic] Cuenta y activación del profesional
 
 **ID:** CAQ-2
-**Estado de sincronización:** Sincronizado con Jira
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 **Estado:** To Do
 
 ## Descripción

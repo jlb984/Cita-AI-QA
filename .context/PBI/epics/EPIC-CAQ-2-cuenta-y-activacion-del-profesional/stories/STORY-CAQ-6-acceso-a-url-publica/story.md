@@ -3,8 +3,9 @@
 **ID:** CAQ-6
 **Epic:** CAQ-2
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira
-**Estado:** Refinado
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Refinamiento:** Refinado
+**Inspección QA:** Bloqueante
 
 ## Descripción
 
@@ -17,9 +18,9 @@ Como profesional, quiero localizar y copiar mi URL pública desde la experiencia
 | Independiente | Sí | Puede resolverse mostrando el slug ya generado para una cuenta existente, sin modificar el flujo público de reservas. |
 | Negociable | Sí | La necesidad de encontrar y compartir la URL está acordada; la ubicación, el control y la confirmación visual son negociables. |
 | Valiosa | Sí | Resuelve la consulta principal de los profesionales nuevos y permite comenzar a recibir reservas. |
-| Estimable | No | No se definieron la ubicación de la URL, la interacción de copia ni el comportamiento ante futuros cambios de nombre o dominio. |
+| Estimable | Sí | Las decisiones vigentes de Producto cierran los valores y resultados necesarios para estimar la Story. |
 | Pequeña | Sí | Se concentra en exponer y copiar un dato existente dentro de la experiencia autenticada. |
-| Testeable | No | La composición y unicidad son verificables, pero no puede validarse que la URL sea localizable o copiable hasta acordar la interacción esperada. |
+| Testeable | Sí | Los criterios incorporan resultados observables y valores aprobados para el release 1.1. |
 
 ## Criterios de Aceptación (Gherkin)
 
@@ -79,6 +80,35 @@ Como profesional, quiero localizar y copiar mi URL pública desde la experiencia
 
 **Then** puede localizar su enlace de reservas funcionando antes de que transcurran 5 minutos desde el inicio del registro
 
+### Escenario 7: Mostrar y copiar el enlace desde el dashboard
+**Given** que el profesional autenticado tiene un slug público
+**When** visualiza la tarjeta permanente «Mi enlace de reservas»
+**Then** el sistema muestra la URL pública completa
+**And** ofrece «Copiar enlace» y «Abrir página»
+
+### Escenario 8: Confirmar la copia de forma accesible
+**Given** que el profesional visualiza su enlace de reservas
+**When** selecciona «Copiar enlace»
+**Then** el sistema copia la URL completa
+**And** anuncia «Enlace copiado» mediante un mensaje accesible
+
+### Escenario 9: Abrir el perfil sin disponibilidad
+**Given** que el profesional todavía no configuró disponibilidad
+**When** abre su URL pública
+**Then** el sistema muestra el perfil
+**And** informa «No hay horarios disponibles por el momento.»
+
+## Decisiones de Producto incorporadas
+
+Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-6 y decisiones transversales aplicables.
+
+* El dashboard muestra una tarjeta permanente denominada `Mi enlace de reservas`, con la URL completa y acciones `Copiar enlace` y `Abrir página`.
+* Después de copiar se muestra `Enlace copiado` mediante un mensaje accesible.
+* El slug no es editable y no cambia al modificar el nombre durante el release 1.1.
+* El dominio canónico del release es `https://cita-ai.vercel.app/`. La migración a `cita.ai` queda fuera de este release; cuando ocurra deberá mantener redirecciones permanentes durante al menos 12 meses.
+* Antes de configurar disponibilidad, la página pública muestra el perfil y `No hay horarios disponibles por el momento.` El dashboard ofrece un enlace a configurar disponibilidad.
+* La ausencia actual de la URL en el panel es una brecha de implementación, no un cambio de alcance.
+
 ## Notas de QA
 
 * Probar nombres con mayúsculas, acentos y varios espacios, y verificar la URL completa resultante.
@@ -87,6 +117,12 @@ Como profesional, quiero localizar y copiar mi URL pública desde la experiencia
 * Verificar la promesa de menos de 5 minutos desde el inicio del registro hasta que el enlace pueda localizarse y utilizarse.
 * No crear cuentas ni modificar datos en producción durante este refinamiento; actualmente no existe un entorno de prueba confirmado.
 * La implementación continúa `Sin verificar`; los reportes y observaciones documentan que la URL no estaba expuesta, pero no confirman el estado actual.
+
+## Inspección Shift-Left
+
+**Resultado:** Bloqueante
+
+**Reporte:** `.context/testing/inspections/inspeccion-CAQ-6.md`
 
 ## Fuentes
 
@@ -98,18 +134,13 @@ Como profesional, quiero localizar y copiar mi URL pública desde la experiencia
 | El profesional necesita encontrar el enlace para compartirlo con sus clientes | `.context/Confluence-corporativo/06-tickets-soporte-resumen.md` · Registro y acceso; `.context/Confluence-corporativo/documentacion para QA/transcripcion-reunion-2026-05-19.md` · 00:01:17–00:02:20 |
 | El enlace de reservas debe funcionar en menos de 5 minutos desde el inicio del registro | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 10 |
 | La URL no se encontró en dashboard, disponibilidad, clientes ni navegación | **Observado** — producción, 30/08/2026. Evidencia: `.context/architecture/prd.md` · Feature 1, User Journeys y Fuentes |
-| Ofrecer una acción directa para copiar la URL completa | **Hipótesis** — la necesidad de compartir está documentada, pero no se acordó el control de interfaz |
+| Ofrecer una acción directa para copiar la URL completa | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-6 |
+| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-6 |
 
 ## Contradicciones detectadas
 
-* La especificación funcional utiliza `cita.ai/{slug}`, pero la nota de ambientes del 21/05/2026 establece que el dominio configurado y utilizado por los usuarios es `https://cita-ai.vercel.app/`. Se toma la fuente más reciente para componer la URL vigente.
-* La especificación indica que la URL se genera durante el registro; soporte, notas técnicas y la observación de producción documentan que no se muestra en la experiencia autenticada. Se conserva la generación como comportamiento esperado y la exposición como brecha pendiente de verificar.
+* La especificación histórica usa cita.ai/{slug} y la evidencia vigente utiliza https://cita-ai.vercel.app/; Producto adopta este último dominio para el release 1.1. La falta observada de la tarjeta en el dashboard continúa como brecha de implementación.
 
 ## Preguntas abiertas
 
-* ¿En qué pantalla y sección de la experiencia autenticada debe mostrarse la URL pública?
-* ¿La acción para compartir será un botón de copia, el enlace seleccionable, una acción nativa de compartir o una combinación?
-* ¿Qué confirmación visual debe mostrarse después de copiar la URL?
-* ¿El profesional puede personalizar su slug? Si cambia su nombre o slug, ¿la URL anterior redirige, deja de funcionar o permanece como alias?
-* ¿Cuándo se migrará el dominio público desde `cita-ai.vercel.app` a `cita.ai` y cómo se conservarán los enlaces compartidos previamente?
-* ¿Qué debe mostrar la URL pública antes de que el profesional configure disponibilidad?
+* ¿La ausencia observada de la tarjeta «Mi enlace de reservas» continúa vigente en el build que se entregará a QA?
