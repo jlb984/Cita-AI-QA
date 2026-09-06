@@ -1,21 +1,98 @@
-# Story: Como profesional, quiero consultar mis próximos turnos, para organizar mi jornada
+# Story: Consulta de próximos turnos
 
 **ID:** CAQ-15
 **Epic:** CAQ-7
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Refinamiento:** Refinado
+**Inspección QA:** Aprobado
 
 ## Descripción
 
 Como profesional, quiero consultar mis próximos turnos, para organizar mi jornada.
 
-## Criterios de Aceptación (Borrador)
+## Análisis INVEST
 
-- [ ] Un profesional autenticado puede consultar los turnos asociados con su cuenta.
-- [ ] La agenda presenta los turnos próximos.
-- [ ] Cada turno permite distinguir su horario y estado.
-- [ ] La consulta no expone turnos pertenecientes a otro profesional.
-- [ ] Los estados documentados son `confirmed` y `cancelled`.
+| Criterio | Cumple | Observación |
+| :--- | :--- | :--- |
+| Independiente | Sí | Puede validarse con turnos preparados para una cuenta. |
+| Negociable | Sí | La consulta está definida; orden, filtros y detalle siguen abiertos. |
+| Valiosa | Sí | Permite organizar la jornada del profesional. |
+| Estimable | Sí | Las decisiones vigentes de Producto cierran los valores y resultados necesarios para estimar la Story. |
+| Pequeña | Sí | Se limita a consultar los próximos turnos. |
+| Testeable | Sí | Los criterios incorporan resultados observables y valores aprobados para el release 1.1. |
+
+## Criterios de Aceptación (Gherkin)
+
+### Escenario 1: Consultar próximos turnos propios
+
+**Given** que el profesional tiene una sesión válida y turnos futuros asociados
+**When** abre su dashboard
+**Then** el sistema presenta únicamente sus próximos turnos
+**And** permite distinguir el horario y el estado `confirmed` o `cancelled` de cada uno
+
+### Escenario 2: Mostrar el estado vacío
+
+**Given** que no existen citas próximas visibles para la cuenta
+**When** se abre el dashboard
+**Then** el sistema muestra «No tienes citas próximas»
+**And** muestra «Comparte tu perfil público para empezar a recibir reservas.»
+
+### Escenario 3: Impedir exposición entre profesionales
+
+**Given** que un turno pertenece a otro profesional
+**When** el profesional autenticado consulta su agenda
+**Then** el sistema no incluye ese turno en la respuesta ni en la interfaz
+
+### Escenario 4: Mostrar y ordenar los próximos turnos
+**Given** que el profesional autenticado tiene más de un turno futuro confirmado
+**When** consulta «Próximas Citas»
+**Then** el sistema muestra nombre y correo del cliente, fecha, hora, zona, estado y acciones
+**And** ordena los turnos de menor a mayor fecha
+
+### Escenario 5: Paginar próximos turnos
+**Given** que el profesional tiene más de veinte turnos futuros confirmados
+**When** consulta la página siguiente
+**Then** el sistema presenta el bloque siguiente de hasta veinte turnos
+
+### Escenario 6: Buscar próximos turnos
+**Given** que el profesional tiene turnos futuros confirmados
+**When** busca por nombre del cliente
+**Then** el sistema muestra únicamente las coincidencias de su cuenta
+
+### Escenario 7: Filtrar próximos turnos por fecha
+**Given** que el profesional tiene turnos futuros confirmados en distintas fechas
+**When** aplica un rango de fechas
+**Then** el sistema muestra únicamente los turnos comprendidos en el rango
+
+### Escenario 8: Excluir turnos cancelados
+**Given** que el profesional tiene turnos futuros confirmados y cancelados
+**When** consulta «Próximas Citas»
+**Then** el sistema muestra únicamente los turnos confirmed
+**And** no incluye los cancelled
+
+## Decisiones de Producto incorporadas
+
+Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-15 y decisiones transversales aplicables.
+
+* Requiere sesión y autorización de servidor. Solo devuelve turnos del profesional autenticado.
+* Cada fila muestra nombre y correo del cliente, fecha, hora y zona, estado y acciones disponibles.
+* `Próximas Citas` contiene turnos futuros `confirmed`, ordenados de menor a mayor fecha.
+* La vista pagina de a 20 turnos y permite filtrar por rango de fechas y buscar por nombre o correo.
+* Los turnos `cancelled` quedan fuera de `Próximas Citas`; su historial se incorporará en una Story separada.
+* El estado vacío observado se conserva con los textos actuales.
+
+## Notas de QA
+
+* Preparar turnos pasados, futuros, confirmados y cancelados para dos profesionales.
+* El estado vacío está observado; la lista poblada y el aislamiento no lo están.
+* La implementación continúa `Sin verificar`.
+
+## Inspección Shift-Left
+
+**Resultado:** Aprobado
+
+**Reporte:** `.context/testing/inspections/inspeccion-CAQ-15.md`
 
 ## Fuentes
 
@@ -24,4 +101,22 @@ Como profesional, quiero consultar mis próximos turnos, para organizar mi jorna
 | Consulta de agenda y próximos turnos | `.context/architecture/prd.md` · Feature 2; `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 2.1 |
 | Aislamiento por profesional | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Row level security y endpoints |
 | Estados de turno | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 9 |
-| Presentación exacta de horario y estado | **Hipótesis** — son datos mínimos para identificar un turno, pero la documentación no define el diseño de la agenda |
+| Presentación exacta de horario y estado | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-15 |
+| Textos del estado vacío | **Observado** — producción, 02/09/2026. Evidencia: `evidence/2026-09-02-dashboard-sin-citas.png` |
+
+## Comportamiento observado
+
+| Qué hace | Evidencia | Qué decía la documentación |
+| :--- | :--- | :--- |
+| La ruta `/dashboard` renderiza el panel con los indicadores `Citas Hoy`, `Próxima Cita` y la sección `Próximas Citas`. | `evidence/2026-09-02-dashboard-sin-citas.png` | El PRD describe una agenda y consulta de turnos próximos (`.context/architecture/prd.md` · Feature 2), pero no define este estado visual. |
+| Cuando no hay citas próximas, se muestra `No tienes citas próximas` y `Comparte tu perfil público para empezar a recibir reservas.` | `evidence/2026-09-02-dashboard-sin-citas.png` | **Nada: ningún documento describe el estado vacío.** |
+| No se pudo observar una lista con turnos, sus horarios o estados porque la cuenta disponible no tenía citas y no se crearon datos en producción. | `evidence/2026-09-02-dashboard-sin-citas.png` | La historia exige distinguir horario y estado; queda sin verificar. |
+| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-15 |
+
+## Contradicciones detectadas
+
+* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
+
+## Preguntas abiertas
+
+* Ninguna pendiente de decisión funcional.

@@ -1,7 +1,7 @@
 # Epic: [Epic] Agenda, disponibilidad y gestión de turnos
 
 **ID:** CAQ-7
-**Estado de sincronización:** Sincronizado con Jira
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 **Estado:** To Do
 
 ## Descripción
