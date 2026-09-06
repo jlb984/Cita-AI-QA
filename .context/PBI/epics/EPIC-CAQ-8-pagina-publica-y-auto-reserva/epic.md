@@ -1,7 +1,7 @@
 # Epic: [Epic] Página pública y auto-reserva
 
 **ID:** CAQ-8
-**Estado de sincronización:** Sincronizado con Jira
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 **Estado:** To Do
 
 ## Descripción
