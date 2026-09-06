@@ -1,7 +1,7 @@
 # Epic: [Epic] Clientes y límite freemium
 
 **ID:** CAQ-10
-**Estado de sincronización:** Sincronizado con Jira
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 **Estado:** To Do
 
 ## Descripción
