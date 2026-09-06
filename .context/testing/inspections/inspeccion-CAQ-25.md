@@ -1,6 +1,6 @@
-# Reporte de Inspección de Requisitos: Registro del profesional
+# Reporte de Inspección de Requisitos: Listado de clientes del profesional
 
-**Historia:** CAQ-3
+**Historia:** CAQ-25
 **Fecha:** 04/09/2026
 **Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 
@@ -12,20 +12,20 @@
 
 ## 2. Versión Corregida de la Historia
 
-La versión vigente de `story.md` contiene 15 escenarios verificables e incorpora las decisiones aprobadas de Producto, incluidos límites, mensajes, estados y casos borde aplicables. No conserva ambigüedades funcionales abiertas.
+La versión vigente de `story.md` contiene 7 escenarios verificables e incorpora las decisiones aprobadas de Producto, incluidos límites, mensajes, estados y casos borde aplicables. No conserva ambigüedades funcionales abiertas.
 
 ## 3. Valoración de Calidad
 
 * **Veredicto:** Aprobado
-* **Riesgo:** Alto
+* **Riesgo:** Medio
 
 ## Fuentes
 
 | Dato / afirmación | De dónde sale |
 | :--- | :--- |
-| Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-2-cuenta-y-activacion-del-profesional\stories\STORY-CAQ-3-registro-del-profesional\story.md` |
-| Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 1 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3 y decisiones transversales aplicables |
+| Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-10-clientes-y-limite-freemium\stories\STORY-CAQ-25-listado-de-clientes\story.md` |
+| Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 5 |
+| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-25 y decisiones transversales aplicables |
 
 ## Contradicciones detectadas
 

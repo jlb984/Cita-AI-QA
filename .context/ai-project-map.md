@@ -1,5 +1,17 @@
 # 🗺️ AI Project Map: QA AI-Augmented Course
 
+## Conexiones oficiales
+
+* **Jira:** `https://jlb984.atlassian.net/`
+* **Project Key:** `CAQ`
+* **GitHub:** `https://github.com/jlb984/Cita-AI-QA`
+
+Toda integración debe usar estos destinos. El backlog heredado de `BJHB`, otra ejecución
+sobre la misma aplicación, fue deduplicado y adaptado a claves reales de `CAQ` el
+06/09/2026. El mapeo se conserva como trazabilidad, pero no autoriza a operar sobre
+`BJHB`. Véanse
+`.context/project-connections.md` y `.context/PBI/reconciliacion-backlog-caq.md`.
+
 ## 1. Misión y Propósito
 Este repositorio es la base de un curso diseñado para transformar a **QA Manuales** en **QA Augmented Specialists**. El enfoque es el **Context Engineering**: usar la IA como un orquestador técnico que interactúa con herramientas de desarrollo (CLI, Git, Jira, DBs) a través de protocolos **MCP**.
 
@@ -102,10 +114,14 @@ Todos los prompts en `.prompts/` siguen estos principios de optimización:
 ## 5. Configuración de Entorno y Git
 
 *   **Terminal:** Optimizada para **Warp** (Warp AI / Blocks).
-*   **Git Sync:** El repositorio local está configurado con un remoto `origin` que realiza un **Multi-Push** a dos destinos:
-    1.  `https://github.com/Ecosistemas-QA/curso-QA-AI-Augmented.git`
-    2.  `https://github.com/jlb984/curso-QA-AI-Augmented.git`
-*   **Autenticación:** Las tres URLs van **limpias, sin credenciales**. El token vive en el gestor de credenciales del sistema, configurado por repositorio en `.git/config`. Nunca se escribe en una URL de remoto.
+*   **Git Sync:** El repositorio oficial es
+    `https://github.com/jlb984/Cita-AI-QA`. Antes de publicar, se debe comprobar
+    que `origin` apunte a ese destino.
+*   **Jira:** La instancia es `https://jlb984.atlassian.net/` y el único Project Key de
+    esta ejecución es `CAQ`.
+*   **Autenticación:** Las URLs van **limpias, sin credenciales**. Los tokens viven en el
+    gestor de credenciales o en la configuración privada del MCP y nunca se escriben en una
+    URL de remoto ni en la documentación.
 
 ## 6. Estado Actual del Proyecto (Agosto 2026)
 

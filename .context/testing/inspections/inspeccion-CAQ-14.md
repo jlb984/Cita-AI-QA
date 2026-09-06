@@ -1,6 +1,6 @@
-# Reporte de Inspección de Requisitos: Registro del profesional
+# Reporte de Inspección de Requisitos: Registro manual de un turno
 
-**Historia:** CAQ-3
+**Historia:** CAQ-14
 **Fecha:** 04/09/2026
 **Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 
@@ -12,7 +12,7 @@
 
 ## 2. Versión Corregida de la Historia
 
-La versión vigente de `story.md` contiene 15 escenarios verificables e incorpora las decisiones aprobadas de Producto, incluidos límites, mensajes, estados y casos borde aplicables. No conserva ambigüedades funcionales abiertas.
+La versión vigente de `story.md` contiene 6 escenarios verificables e incorpora las decisiones aprobadas de Producto, incluidos límites, mensajes, estados y casos borde aplicables. No conserva ambigüedades funcionales abiertas.
 
 ## 3. Valoración de Calidad
 
@@ -23,9 +23,9 @@ La versión vigente de `story.md` contiene 15 escenarios verificables e incorpor
 
 | Dato / afirmación | De dónde sale |
 | :--- | :--- |
-| Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-2-cuenta-y-activacion-del-profesional\stories\STORY-CAQ-3-registro-del-profesional\story.md` |
-| Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 1 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3 y decisiones transversales aplicables |
+| Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-7-agenda-disponibilidad-y-gestion-de-turnos\stories\STORY-CAQ-14-registro-manual-de-turno\story.md` |
+| Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 2 |
+| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-14 y decisiones transversales aplicables |
 
 ## Contradicciones detectadas
 
