@@ -1,29 +1,91 @@
-# Story: Como cliente final, quiero cancelar mediante el enlace de mi correo, para liberar el horario sin crear una cuenta
+# Story: Cancelación por el cliente mediante enlace
 
 **ID:** CAQ-20
 **Epic:** CAQ-9
 **Implementación:** Sin verificar
-**Modo de exploración:** Navegador automatizado
-**Entorno observado:** Producción · 02/09/2026
-**Estado de sincronización:** Sincronizado
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Refinamiento:** Refinado
+**Inspección QA:** Aprobado
 
 ## Descripción
 
 Como cliente final, quiero cancelar mediante el enlace de mi correo, para liberar el horario sin crear una cuenta.
 
-## Criterios de Aceptación (Borrador)
+## Análisis INVEST
 
-- [ ] El correo de confirmación incluye un enlace único de cancelación.
-- [ ] El enlace permite cancelar sin iniciar sesión.
-- [ ] Solo se puede cancelar un turno que no esté en el pasado.
-- [ ] La cancelación cambia el estado del turno a `cancelled`.
-- [ ] El horario cancelado vuelve a estar disponible.
-
-## Comportamiento observado
-
-| Qué hace | Evidencia | Qué decía la documentación |
+| Criterio | Cumple | Observación |
 | :--- | :--- | :--- |
-| No se recorrió la cancelación pública: no se dispuso de un enlace de cancelación perteneciente a datos sintéticos y generar uno exigiría crear un turno y enviar correos reales en producción. | Sin evidencia de ejecución; recorrido detenido antes de modificar datos. | `.context/infrastructure/environments.md` · Mapa de Entornos y Riesgos; `.context/infrastructure/test-data-strategy.md` · Limpieza y Reset |
+| Independiente | No | Depende del correo de confirmación y su enlace único. |
+| Negociable | Sí | El objetivo y efectos están definidos; la ventana de cancelación queda abierta. |
+| Valiosa | Sí | Permite liberar el horario sin crear una cuenta. |
+| Estimable | Sí | Las decisiones vigentes de Producto cierran los valores y resultados necesarios para estimar la Story. |
+| Pequeña | Sí | Cubre una cancelación iniciada por el cliente. |
+| Testeable | Sí | Estado, autorización por token y liberación pueden comprobarse. |
+
+## Criterios de Aceptación (Gherkin)
+
+### Escenario 1: Cancelar un turno futuro mediante enlace
+
+**Given** que el cliente posee el enlace único de un turno futuro `confirmed`
+**When** abre el enlace y confirma la cancelación sin iniciar sesión
+**Then** el sistema cambia el turno a `cancelled`
+**And** vuelve a ofrecer el horario según las reglas vigentes
+
+### Escenario 2: Rechazar la cancelación de un turno pasado
+
+**Given** que el enlace corresponde a un turno pasado
+**When** el cliente intenta cancelarlo
+**Then** el sistema rechaza la operación
+**And** no modifica el turno
+
+### Escenario 3: Reutilizar el enlace de un turno ya cancelado
+
+**Given** que el turno del enlace ya está `cancelled`
+**When** el cliente vuelve a usarlo
+**Then** el sistema no ejecuta una segunda cancelación
+**And** no crea ni modifica otros turnos
+
+### Escenario 4: Rechazar una cancelación dentro de dos horas
+**Given** que faltan menos de dos horas para el inicio del turno
+**When** el cliente abre el enlace e intenta cancelar
+**Then** el sistema conserva el turno
+**And** muestra «Ya no puedes cancelar este turno desde el enlace. Contacta al profesional.»
+
+### Escenario 5: Rechazar un token inválido
+**Given** que el enlace contiene un token inválido
+**When** el cliente intenta cancelar
+**Then** el sistema no modifica el turno
+**And** muestra «El enlace de cancelación no es válido.»
+
+### Escenario 6: Persistir y liberar antes de informar éxito
+**Given** que el token y la ventana de cancelación son válidos
+**When** el cliente confirma la cancelación
+**Then** el sistema persiste cancelled y libera el slot en una única operación
+**And** solo después informa el éxito
+
+## Decisiones de Producto incorporadas
+
+Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 y decisiones transversales aplicables.
+
+* El enlace contiene un token aleatorio de al menos 256 bits; en la base se conserva solamente su hash.
+* El token es válido desde la confirmación hasta el límite de cancelación de 2 horas antes del turno.
+* Reenviar la confirmación reutiliza el mismo enlace mientras siga vigente. No existe regeneración autónoma del token en este release.
+* Un turno ya cancelado muestra `Este turno ya fue cancelado.` sin repetir efectos.
+* Token inválido: `El enlace de cancelación no es válido.`
+* Turno pasado o dentro de la ventana restringida: `Ya no puedes cancelar este turno desde el enlace. Contacta al profesional.`
+* Una cancelación válida persiste `cancelled` y libera el slot en una única operación antes de informar éxito.
+
+## Notas de QA
+
+* Probar token válido, alterado, de otro turno y ya utilizado.
+* Verificar persistencia y disponibilidad pública después de cancelar.
+* La implementación continúa `Sin verificar`.
+
+## Inspección Shift-Left
+
+**Resultado:** Aprobado
+
+**Reporte:** `.context/testing/inspections/inspeccion-CAQ-20.md`
 
 ## Fuentes
 
@@ -32,18 +94,13 @@ Como cliente final, quiero cancelar mediante el enlace de mi correo, para libera
 | Enlace único sin cuenta | `.context/Confluence-corporativo/01-minuta-kickoff.md` · Los dos usuarios del sistema; `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 6.1 |
 | Restricción temporal, estado y liberación | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 6.3 |
 | Riesgo del endpoint público | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Endpoints |
-| Tres enlaces de cancelación fallaron durante marzo de 2026 y no hubo nuevos reportes después de fin de ese mes | `.context/Confluence-corporativo/06-tickets-soporte-resumen.md` · Cancelaciones; `.context/Confluence-corporativo/documentacion para QA/transcripcion-reunion-2026-05-19.md` · 00:02:24–00:02:56 |
-| Producción es el único entorno operativo y no admite rollback de datos | `.context/Confluence-corporativo/documentacion para QA/nota-ambientes-y-accesos.md` · Lo del ambiente de UAT |
+| No repetir efectos al reutilizar un enlace | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 |
+| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 |
 
 ## Contradicciones detectadas
 
-* La especificación funcional afirma que el enlace lleva un identificador único del turno; las notas técnicas advierten que el endpoint público usa el `id` del turno con `service role` y que quien adivine ese identificador podría cancelar. No se elige entre ambas versiones: la seguridad actual del enlace requiere verificación.
-* Los tickets de soporte registran tres errores de enlace durante marzo de 2026; la reunión del 19/05/2026 afirma que el problema fue corregido y no volvió a reportarse. No se pudo comprobar el estado actual sin un enlace sintético seguro.
+* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
 
 ## Preguntas abiertas
 
-* ¿El enlace público utiliza actualmente un token impredecible o expone el `id` del turno?
-* ¿Qué textos literales se muestran antes de confirmar, después de cancelar y al abrir un enlace inválido, ya utilizado o correspondiente a un turno pasado?
-* ¿La cancelación pública es idempotente ante reintentos?
-* ¿El horario vuelve a publicarse inmediatamente y se envía el aviso al profesional cuando la entrega de correo falla?
-* ¿Qué entorno aislado y qué datos sintéticos permiten recorrer el flujo completo sin afectar producción?
+* Ninguna pendiente de decisión funcional.

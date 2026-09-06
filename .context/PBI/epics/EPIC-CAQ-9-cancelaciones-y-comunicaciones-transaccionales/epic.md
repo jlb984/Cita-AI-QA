@@ -1,7 +1,7 @@
 # Epic: [Epic] Cancelaciones y comunicaciones transaccionales
 
 **ID:** CAQ-9
-**Estado de sincronización:** Sincronizado con Jira
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 **Estado:** To Do
 
 ## Descripción

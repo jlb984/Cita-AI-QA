@@ -1,29 +1,91 @@
-# Story: Como parte de un turno cancelado, quiero recibir un aviso, para conocer el cambio
+# Story: Aviso de cancelación a la contraparte
 
 **ID:** CAQ-22
 **Epic:** CAQ-9
 **Implementación:** Sin verificar
-**Modo de exploración:** Navegador automatizado
-**Entorno observado:** Producción · 02/09/2026
-**Estado de sincronización:** Sincronizado
+**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Refinamiento:** Refinado
+**Inspección QA:** Aprobado
 
 ## Descripción
 
 Como parte de un turno cancelado, quiero recibir un aviso, para conocer el cambio.
 
-## Criterios de Aceptación (Borrador)
+## Análisis INVEST
 
-- [ ] Cuando cancela el cliente, el sistema envía un aviso al profesional.
-- [ ] Cuando cancela el profesional, el sistema envía un aviso al cliente.
-- [ ] El aviso identifica quién canceló.
-- [ ] No se envía el aviso de cancelación a la misma parte que inició la acción.
-- [ ] Una falla de entrega no debe revertir silenciosamente el estado ya cancelado del turno.
-
-## Comportamiento observado
-
-| Qué hace | Evidencia | Qué decía la documentación |
+| Criterio | Cumple | Observación |
 | :--- | :--- | :--- |
-| No se disparó ningún aviso: verificarlo exige cancelar un turno y enviar un correo real desde producción, única instancia operativa documentada. | Sin evidencia de ejecución; recorrido detenido antes de modificar datos o enviar correos. | `.context/infrastructure/environments.md` · Mapa de Entornos y Riesgos; `.context/infrastructure/test-data-strategy.md` · Limpieza y Reset |
+| Independiente | No | Depende de una cancelación exitosa de CAQ-20 o CAQ-21. |
+| Negociable | Sí | Destinatario y contenido mínimo están definidos. |
+| Valiosa | Sí | Informa oportunamente el cambio a la contraparte. |
+| Estimable | Sí | Las decisiones vigentes de Producto cierran los valores y resultados necesarios para estimar la Story. |
+| Pequeña | Sí | Cubre la notificación derivada de cancelar. |
+| Testeable | Sí | Destinatario, contenido y ausencia de envío al actor son comprobables. |
+
+## Criterios de Aceptación (Gherkin)
+
+### Escenario 1: Avisar al profesional cuando cancela el cliente
+
+**Given** que el cliente cancela exitosamente un turno
+**When** el sistema procesa la cancelación
+**Then** envía al profesional un aviso que identifica que canceló el cliente
+**And** no envía ese aviso al cliente que inició la acción
+
+### Escenario 2: Avisar al cliente cuando cancela el profesional
+
+**Given** que el profesional cancela exitosamente un turno
+**When** el sistema procesa la cancelación
+**Then** envía al cliente un aviso que identifica que canceló el profesional
+**And** no envía ese aviso al profesional que inició la acción
+
+### Escenario 3: Falla de entrega posterior a la cancelación
+
+**Given** que el turno ya cambió a `cancelled`
+**When** falla el envío del aviso
+**Then** el sistema conserva el estado cancelado
+
+### Escenario 4: Incluir el detalle de la cancelación
+**Given** que una cancelación quedó persistida
+**When** el sistema genera el aviso a la contraparte
+**Then** incluye quién canceló, profesional, fecha, hora, zona y estado «Cancelado»
+**And** no envía el aviso al mismo actor que canceló
+
+### Escenario 5: Reintentar una entrega fallida
+**Given** que la cancelación ya quedó persistida y falla el primer envío
+**When** se procesa la política de correo
+**Then** el sistema reintenta después de 1 minuto, 10 minutos y 1 hora
+**And** no revierte la cancelación
+
+## Decisiones de Producto incorporadas
+
+Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 y decisiones transversales aplicables.
+
+**Política común de correos de producto**
+
+* Resend es el proveedor para bienvenida, reserva, cancelación y recordatorio. Supabase se conserva para autenticación y recuperación.
+* Cada evento funcional tiene un identificador idempotente para evitar correos duplicados.
+* Ante fallo se realizan tres reintentos: después de 1 minuto, 10 minutos y 1 hora.
+* Agotados los reintentos, el evento queda `failed`, se registra en monitoreo y se alerta al equipo. No se revierte una cuenta, reserva o cancelación ya persistida.
+* La interfaz informa éxito de la operación principal y, cuando el usuario autenticado sea el actor, advierte `La operación se completó, pero no pudimos enviar el correo.`
+
+**Decisión específica de CAQ-22**
+
+* Si cancela el cliente se notifica solo al profesional; si cancela el profesional se notifica solo al cliente.
+* El aviso incluye quién canceló, nombre del profesional, fecha, hora, zona horaria y estado `Cancelado`.
+* El correo se genera únicamente después de persistir la cancelación.
+* Una falla de entrega no revierte la cancelación y usa la política común de reintentos.
+
+## Notas de QA
+
+* Usar buzones sintéticos y comprobar destinatario, ausencia de duplicados y contenido.
+* El escenario de falla conserva el turno por hipótesis y requiere ratificación.
+* La implementación continúa `Sin verificar`.
+
+## Inspección Shift-Left
+
+**Resultado:** Aprobado
+
+**Reporte:** `.context/testing/inspections/inspeccion-CAQ-22.md`
 
 ## Fuentes
 
@@ -31,18 +93,13 @@ Como parte de un turno cancelado, quiero recibir un aviso, para conocer el cambi
 | :--- | :--- |
 | Destinatario y contenido del aviso | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · secciones 6.3 y 7 |
 | Existencia actual del correo de cancelación | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · correo del 28/02/2026 |
-| Un profesional reportó no haber visto el aviso; soporte confirmó que estaba en spam | `.context/Confluence-corporativo/06-tickets-soporte-resumen.md` · Cancelaciones, ticket #55 |
-| Manejo de una falla de correo posterior a cancelar | **Hipótesis** — la documentación indica envíos sincrónicos, pero no define atomicidad entre estado y notificación |
-| Producción es el único entorno operativo y los correos salen realmente | `.context/Confluence-corporativo/documentacion para QA/nota-ambientes-y-accesos.md` · Lo del ambiente de UAT y Cómo entrar |
+| Manejo de una falla de correo posterior a cancelar | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 |
+| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 |
 
 ## Contradicciones detectadas
 
-* La especificación funcional y las notas técnicas iniciales atribuyen los correos al servicio de Supabase; el hilo del 28/02/2026 documenta una migración posterior de los correos de producto a Resend. Se toma el hilo más reciente para el proveedor actual, sin alterar los archivos históricos.
+* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
 
 ## Preguntas abiertas
 
-* ¿Cuál es el asunto y el cuerpo literal del aviso para cada parte que cancela?
-* ¿Cómo identifica el mensaje quién canceló y qué datos del turno incluye?
-* ¿Qué estado conserva el turno cuando Resend rechaza, demora o no entrega el correo?
-* ¿Existe reintento, trazabilidad o alerta ante fallas de entrega?
-* ¿Qué entorno aislado e interceptor de correo permiten comprobar ambos sentidos del aviso sin notificar a personas reales?
+* Ninguna pendiente de decisión funcional.
