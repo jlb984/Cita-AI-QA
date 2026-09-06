@@ -2,17 +2,20 @@
 
 **Origen:** `.context/architecture/prd.md`
 **Fuentes del backlog:** documentación local y respaldo histórico de Confluence
+**Decisiones vigentes para el próximo release:** `.context/PBI/decisiones-po-proximo-release.md`
+**Jira canónico:** `https://jlb984.atlassian.net/` · Project Key `CAQ`
+**GitHub canónico:** `https://github.com/jlb984/Cita-AI-QA`
+**Adaptación local:** completada y documentada en `.context/PBI/reconciliacion-backlog-caq.md`
 **Tipo de proyecto:** Brownfield
-**Fecha:** 01/09/2026
-**Última comprobación contra Jira (CAQ-3):** 2026-09-02
+**Fecha:** 04/09/2026
 
-| Epic | Stories | Sin verificar | Estado de sincronización |
-| :--- | :---: | :---: | :--- |
-| CAQ-2 [Epic] Cuenta y activación del profesional | 4 | 4 | Sincronizado |
-| CAQ-7 [Epic] Agenda, disponibilidad y gestión de turnos | 5 | 5 | Sincronizado |
-| CAQ-8 [Epic] Página pública y auto-reserva | 4 | 4 | Sincronizado |
-| CAQ-9 [Epic] Cancelaciones y comunicaciones transaccionales | 5 | 5 | Sincronizado |
-| CAQ-10 [Epic] Clientes y límite freemium | 4 | 4 | Sincronizado |
+| Epic | Stories | Refinadas | Inspeccionadas | Sin verificar | Estado de sincronización |
+| :--- | :---: | :---: | :---: | :---: | :--- |
+| CAQ-2 [Epic] Cuenta y activación del profesional | 4 | 4 | 4 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
+| CAQ-7 [Epic] Agenda, disponibilidad y gestión de turnos | 5 | 5 | 5 | 5 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
+| CAQ-8 [Epic] Página pública y auto-reserva | 4 | 4 | 4 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
+| CAQ-9 [Epic] Cancelaciones y comunicaciones transaccionales | 5 | 5 | 5 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
+| CAQ-10 [Epic] Clientes y límite freemium | 4 | 4 | 4 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
 
 ## Epics identificadas, pendientes de desglosar
 
@@ -20,11 +23,60 @@
 
 ## Pendiente de subir a Jira
 
-* Ninguna: todo sincronizado.
+* Ninguna. Las 5 Epics y 22 Stories adaptadas se sincronizaron y verificaron contra Jira
+  `CAQ` el 06/09/2026.
+
+## Estado de refinamiento
+
+**Última corrida:** 04/09/2026 · alcance: todas
+
+| Resultado | Cantidad |
+| :--- | ---: |
+| Stories reprocesadas | 22 |
+| Stories refinadas | 22 |
+| Escenarios Gherkin vigentes | 157 |
+| Escenarios netos agregados en esta corrida | 71 |
+| Stories con preguntas funcionales abiertas | 0 |
+
+Las decisiones vigentes de `.context/PBI/decisiones-po-proximo-release.md` se incorporaron
+como reglas explícitas y escenarios verificables. Las preguntas que permanecen en cuatro
+Stories son de diagnóstico técnico sobre discrepancias ya observadas, no decisiones
+funcionales pendientes.
+
+**Discrepancias contra Jira antes de la sincronización:** ninguna modificación funcional
+más reciente que el material local. Se conservaron las claves reales de `CAQ`.
+
+## Estado de Shift-Left Testing
+
+**Última corrida:** 04/09/2026 · alcance: todas
+
+| Resultado | Cantidad |
+| :--- | ---: |
+| Stories inspeccionadas | 22 |
+| Aprobadas | 18 |
+| Requiere cambios | 0 |
+| Bloqueantes | 4 |
+| Hallazgos abiertos | 4 |
+
+Las decisiones de Producto resolvieron las 69 observaciones de requisitos de la corrida
+anterior. Permanecen cuatro discrepancias contra comportamiento observado: protección después
+del logout (`CAQ-4`), exposición de la URL pública (`CAQ-6`), cancelación no persistida
+(`CAQ-21`) y alta manual de cliente sin respuesta visible (`CAQ-26`).
+
+Los cinco planes de prueba por Epic fueron regenerados con la escala de riesgo vigente, los
+objetivos no funcionales aprobados y la necesidad documentada de un entorno QA aislado. La
+ejecución mutante continúa bloqueada mientras el mapa real solo confirme Producción y no existan
+seed, teardown ni correo sandbox disponibles.
+
+**Sincronización Jira:** completada y verificada el 06/09/2026. Las 27 descripciones se
+actualizaron; cada Story conserva exactamente un comentario Shift-Left vigente y uno de
+decisiones de Producto, sin duplicados.
 
 ## Pendiente de verificar contra la aplicación
 
-* CAQ-3 a CAQ-6 y CAQ-11 a CAQ-28 permanecen `Sin verificar` por tratarse de un proyecto Brownfield y existir únicamente un entorno de producción con datos reales.
+* Todas las Stories excepto CAQ-21 permanecen `Sin verificar` por tratarse de un proyecto
+  Brownfield y existir únicamente un entorno de producción con datos reales.
+* CAQ-21 fue verificada parcialmente en producción con un turno sintético: la UI inicia la cancelación, pero el cambio no persiste ni libera el horario.
 
 ## Contradicciones detectadas
 
@@ -37,6 +89,11 @@
 * La especificación presenta el recordatorio del día anterior como requisito; el hilo del 03/03/2026 y la reunión del 19/05/2026 confirman que fue excluido del lanzamiento y sigue sin implementarse. Se conserva como brecha priorizada.
 * La especificación exige impedir superposiciones, pero las notas técnicas documentan una validación no transaccional y soporte registró duplicados. El comportamiento esperado se conserva y la implementación queda sin verificar.
 * El resumen automático atribuye ambos casos de turnos duplicados a husos horarios; la transcripción confirma esa causa solo para uno. Se toma la transcripción como fuente original.
+* La especificación funcional exige que cancelar cambie el turno a `cancelled` y libere el horario; en CAQ-21 la UI retiró temporalmente el turno, pero una navegación nueva lo mostró otra vez, el endpoint autenticado lo mantuvo `confirmed` y la disponibilidad pública no liberó el slot.
+* Se importó material de `BJHB`, otra ejecución sobre la misma aplicación. El 06/09/2026 se
+  comparó contra `CAQ`, se evitaron duplicados y se adaptó el contenido a claves reales. El
+  detalle queda en `.context/PBI/reconciliacion-backlog-caq.md`; `BJHB` no debe usarse como
+  destino Jira de este repositorio.
 
 ## Preguntas abiertas
 
