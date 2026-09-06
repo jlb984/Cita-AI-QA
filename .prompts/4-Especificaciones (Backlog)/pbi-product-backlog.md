@@ -172,7 +172,7 @@ Al terminar, confírmame:
 # Epic: [Título]
 **ID:** [KEY de Jira o ID temporal]
 **Estado de sincronización:** [Sincronizado con Jira | PENDIENTE DE SUBIR A JIRA]
-**Estado:** To Do
+**Estado del trabajo:** To Do
 
 ## Descripción
 [Descripción, con referencia a la sección del PRD de la que sale]
@@ -196,6 +196,8 @@ Al terminar, confírmame:
 **ID:** [KEY de Jira o ID temporal]
 **Epic:** [EPIC-KEY]
 **Implementación:** Sin verificar
+**Refinamiento:** Borrador
+**Inspección QA:** Sin inspeccionar
 **Estado de sincronización:** [Sincronizado con Jira | PENDIENTE DE SUBIR A JIRA]
 
 ## Descripción
@@ -212,6 +214,20 @@ Como [rol], quiero [acción], para [beneficio].
 | [Criterio de aceptación] | **Observado** — [entorno], [fecha]. Evidencia: `[ruta]` |
 | [Criterio de aceptación] | **Hipótesis** — no hay documento que lo respalde |
 ```
+
+> **Los cuatro estados de una historia son independientes y cada uno tiene un solo dueño.**
+> No se deducen entre sí y **ninguno se estima**: si no te consta, se deja como está.
+>
+> | Campo | Contesta | Lo escribe |
+> | :--- | :--- | :--- |
+> | `Implementación` | ¿Está **construido**? | La skill `documentar-historia`, que va a mirar |
+> | `Refinamiento` | ¿Tiene **criterios probables**? | `refine-stories.md` |
+> | `Inspección QA` | ¿Pasó la **revisión**? | `requirement-inspection.md` (Fase 5) |
+> | `Estado de sincronización` | ¿Está en **Jira**? | Cualquiera que suba o coteje |
+>
+> > **Una historia refinada no está construida, y una construida no está inspeccionada.**
+> > Mezclarlos es el error que hace que alguien lea `Refinado` y crea que la funcionalidad
+> > existe.
 
 > **El campo `Implementación`** admite `Implementada`, `Parcial`, `No encontrada` o
 > `Sin verificar`, y **acá siempre nace `Sin verificar`**: este prompt arma el mapa del

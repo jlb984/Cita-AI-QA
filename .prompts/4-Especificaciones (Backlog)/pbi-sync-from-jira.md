@@ -85,7 +85,7 @@ Tres cosas propias de una historia traída del tablero:
 | Qué difiere | Quién manda |
 | :--- | :--- |
 | Estado, asignación, título, prioridad, campos del ticket | **Jira.** Actualiza el archivo local sin preguntar |
-| `Implementación`, tabla de **Fuentes**, evidencia, filas `Observado` | **El archivo local.** Jira no tiene dónde guardar eso — **no lo borres nunca** |
+| `Implementación`, `Refinamiento`, `Inspección QA`, tabla de **Fuentes**, evidencia, filas `Observado` | **El archivo local.** Jira no tiene dónde guardar nada de eso — **no lo borres nunca** |
 | **El texto de un criterio de aceptación** | **Ninguno de los dos. Es un hallazgo.** |
 
 Para el tercer caso: escribe **las dos versiones**, citadas, en *Contradicciones detectadas*, y deja la pregunta en *Preguntas abiertas*. No elijas.
@@ -121,7 +121,7 @@ Es el dato que permite saber, dentro de un mes, si vale la pena volver a cotejar
 **Restricciones:**
 
 - **Nunca traigas en masa.** Solo las keys que te di.
-- **Nunca sobrescribas la tabla de Fuentes, el campo `Implementación` ni las filas `Observado`** con lo que dice el ticket. Eso es trabajo de verificación que el tablero no registra.
+- **Nunca sobrescribas la tabla de Fuentes ni los campos `Implementación`, `Refinamiento` e `Inspección QA`** con lo que dice el ticket. Son trabajo de verificación, refinamiento y revisión que el tablero no registra.
 - **Nunca resuelvas una contradicción de contenido.** Repórtala con las dos versiones.
 - **Nunca inventes lo que el ticket no dice.** Un campo vacío se declara vacío.
 - **Nunca escribas una credencial** que aparezca en un ticket, ni siquiera de un usuario de prueba.

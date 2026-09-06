@@ -26,6 +26,17 @@ Primero, lee todo lo que dejó la Fase 6. **No me pidas que te pegue mis notas: 
 *   Lee los bugs de `.context/testing/exploratory/bugs/`.
 *   Lee el `story.md` de la historia correspondiente, en `.context/PBI/`.
 
+> ⚠️ **Y mira su campo `Implementación:` antes de proponer un solo escenario. Cambia lo que
+> significan los casos que vas a escribir:**
+>
+> | Dice | Qué hacer |
+> | :--- | :--- |
+> | `Implementada` o `Parcial` | Normal. Los casos miden contra algo que existe |
+> | `Sin verificar` | **Dilo en el reporte.** Los casos se diseñan contra una especificación que nadie confirmó contra el sistema |
+> | `No encontrada` | 🔴 **Detente y avísame.** Sus criterios son aspiraciones, no descripciones: documentar casos de prueba para eso produce una batería que va a fallar entera en la primera ejecución, y nadie va a saber si el defecto es del sistema o de los casos |
+>
+> **Nunca marques un caso como listo para ejecutar si la historia dice `No encontrada`.**
+
 Si hay sesiones de varias historias, muéstrame la lista y déjame elegir cuál analizar.
 
 ### **Análisis de Cobertura**

@@ -23,9 +23,22 @@ Este prompt guía una sesión profunda de pruebas exploratorias en la Interfaz d
 
 Actúa como un Experto en Pruebas Exploratorias con enfoque en usabilidad y pruebas destructivas. Tu objetivo es usar creatividad e intuición para encontrar inconsistencias en la UI y generar evidencia reutilizable por las capas de API y de base de datos.
 
+**Pero “destructivas” se refiere a los datos que envías, no al sistema que te presto.** Antes de diseñar la sesión tienes que saber contra qué entorno vas: la sección siguiente lo resuelve, y **condiciona qué escenarios puedes proponer**.
+
 Antes de preguntarme nada, lee lo que ya está escrito:
 
 *   `.context/infrastructure/environments.md` — **de ahí sale la URL y el nombre real del entorno.** No me los pidas. Muéstrame los entornos disponibles y déjame elegir.
+
+> ⚠️ **Y antes de proponer un solo escenario, mira cuántos entornos hay.** Si el mapa no lista uno separado de pruebas, **el sistema que vas a atacar es el que usan las personas reales**, al mismo tiempo que vos. Dime que es así antes de empezar y ajusta la sesión:
+>
+> | Lo que igual se puede hacer | Lo que no |
+> | :--- | :--- |
+> | Probar validaciones con datos inválidos: **lo que el sistema rechaza no deja rastro** | **Cargar datos en volumen.** Lo que se crea, queda |
+> | Recorrer flujos completos con una cuenta de prueba propia | Tocar cuentas o datos que no sean tuyos |
+> | Observar mensajes, estados y transiciones | **Disparar avisos que salen de verdad** — correos, notificaciones |
+> | Anotar lo que *habría* que probar sin entorno aislado | Pruebas de carga o de concurrencia |
+>
+> **Esto no cancela la sesión: la acota.** Un escenario que no se pueda ejecutar por falta de entorno **se diseña igual y se marca `No ejecutado`, con el motivo**. Es información para quien decida si vale la pena tener un entorno de pruebas.
 *   `.context/infrastructure/test-data-strategy.md` — de ahí salen los usuarios y roles de prueba. **Nunca me pidas una contraseña por chat ni abras el `.env` para leerla:** vive en el `.env` de la raíz (`TEST_USER_PASSWORD`, ver `.env.example`) y se referencia como variable.
 *   `.context/PBI/epic-tree.md` — muéstrame las historias disponibles y déjame elegir cuál probar.
 
@@ -43,7 +56,7 @@ Define una misión de 30-45 minutos.
 **Con Playwright MCP:**
 *   Navega a la URL.
 *   Ejecuta el flujo del camino feliz.
-*   Intenta romperlo con formularios vacíos, datos inválidos y caracteres especiales.
+*   Intenta romperlo con formularios vacíos, datos inválidos y caracteres especiales. **Dentro de los límites del entorno**: si no hay uno aislado, ataca las validaciones —que rechazan y no persisten— y **avísame antes de crear cualquier dato que quede**.
 *   Captura pantallas de evidencia de cualquier error visual o funcional.
 *   Guarda cada captura en `.context/testing/exploratory/ui/evidence/screenshots/`.
 *   Usa esta convención de nombre: `[fecha]-[feature-slug]-[escenario-slug]-[pass|fail].png`.

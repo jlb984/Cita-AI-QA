@@ -19,6 +19,13 @@ Actúa como un Experto en Inspección de Requisitos certificado por ISTQB. Tu me
 
 Primero, lee `.context/PBI/epic-tree.md` y muéstrame la lista de historias disponibles. **Déjame elegir por ID**: no me pidas que te pegue la historia, ya está escrita en el repositorio.
 
+> ⚠️ **Si ya te di el alcance, no vuelvas a preguntarlo.** Un ID, una lista de IDs, el
+> nombre de una Epic o la palabra "todas" **es el alcance: continúa directamente.**
+>
+> **Y prefiere siempre el modo de a una.** Una por sesión es una unidad de trabajo que entra
+> en una rama, se revisa entera y se puede revertir sola. El modo masivo existe para poner
+> un backlog al día, no para trabajar todos los días — y si te lo pido, decímelo y hacelo.
+
 > **Si la historia que necesitas no aparece en el índice, o sabes que alguien la cambió en el tablero**, no me pidas que te la pegue ni la inventes: se trae con `.prompts/4-Especificaciones (Backlog)/pbi-sync-from-jira.md`, que la escribe en local y deja constancia de la fecha. Dilo y detente.
 
 Lee también `.context/architecture/prd.md`. Vas a necesitarlo para el análisis 4.
@@ -90,11 +97,25 @@ Además de los cinco análisis principales, puedes considerar de forma opcional:
 ### **7. Acción Correctiva (Cierre del Ciclo)**
 El objetivo final no es solo reportar, sino mejorar.
 
-*   **Si tienes el MCP de Atlassian:**
-    1.  Actualiza la User Story en Jira con las correcciones detectadas.
-    2.  Deja un comentario en la actividad indicando que la edición corresponde al análisis de **Shift-Left Testing**.
-    3.  En ese comentario, lista los defectos encontrados (ID/tipo + resumen) y qué se corrigió.
-*   **Si no lo tienes, o el MCP no responde:** no te detengas. Escribe igual la **"Versión Corregida de la Historia"** dentro del reporte, deja el campo `**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA` y **avísame en la confirmación final**.
+**La corrección va siempre a los dos lados, y el local no es opcional.** El `story.md` es lo
+que leen las fases siguientes: si corriges en Jira y no en el archivo, la Fase 6 va a probar
+contra la versión vieja.
+
+1.  **Aplica las correcciones sobre el `story.md`**, en su ruta actual.
+2.  **Pon `**Inspección QA:**`** con el veredicto: `Aprobado`, `Requiere cambios` o
+    `Bloqueante`. **Es el único estado que te pertenece** — `Implementación` y `Refinamiento`
+    se conservan tal como vengan.
+3.  **Si tienes el MCP de Atlassian**, sube la historia corregida y deja constancia en el
+    ticket: qué defectos encontraste (ID/tipo + resumen) y qué se corrigió, diciendo que sale
+    del análisis de **Shift-Left Testing**.
+4.  **Si no lo tienes, o no responde:** no te detengas. Deja
+    `**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA` y **avísame en la confirmación
+    final**.
+
+> ⚠️ **Y esto se repite, así que tiene que ser idempotente.** Al correr la inspección dos
+> veces sobre la misma historia, **edita el comentario de Shift-Left que ya dejaste** en lugar
+> de agregar otro, y actualiza las secciones existentes en vez de duplicarlas. **Un ticket con
+> cuatro comentarios casi iguales es peor que uno sin comentarios**: nadie sabe cuál vale.
 
 ---
 
@@ -125,10 +146,11 @@ El contenido debe seguir esta estructura:
 | 4 | Contradice al sistema | El criterio dice 10; la aplicación permite 11 | Confirmar cuál es el correcto: puede ser un defecto del sistema |
 
 ## 2. Versión Corregida de la Historia
-[La historia con los defectos ya resueltos, lista para reemplazar a la original]
+[La historia corregida **hasta donde las fuentes lo permiten**. Lo que no se puede resolver
+sin una decisión de negocio se deja marcado y se cita en Preguntas abiertas]
 
 ## 3. Valoración de Calidad
-*   **Estado:** [Aprobado / Requiere Cambios / Bloqueante]
+*   **Veredicto:** [Aprobado / Requiere cambios / Bloqueante] — **es el mismo valor que va al campo `Inspección QA` del `story.md`**
 *   **Riesgo:** [Bajo / Medio / Alto]
 
 ## Fuentes
@@ -148,6 +170,11 @@ El contenido debe seguir esta estructura:
 
 **Restricciones:**
 
+- **La "Versión Corregida" se corrige hasta donde las fuentes lo permiten, y ni un paso más.**
+  No es una historia lista para aprobar: es la misma historia con los defectos resueltos que
+  **se pueden** resolver leyendo. Lo que exige una decisión de negocio **queda sin resolver,
+  marcado como tal**, y por eso el veredicto puede ser `Requiere cambios` aunque hayas
+  escrito una versión corregida. **Las dos cosas conviven.**
 - **Toda corrección que propongas tú y no salga de un documento se marca como hipótesis** en la tabla de Fuentes. Corregir "rápido" por "< 2 seg" es una propuesta, no un requisito acordado: hasta que negocio lo confirme, es hipótesis.
 - **Pero si el valor lo mediste en el sistema, no es hipótesis: es `Observado`**, y va con entorno, fecha y evidencia. La diferencia importa: una hipótesis se discute, un dato observado se confirma o se corrige.
 - **Nunca resuelvas tú una contradicción entre la historia y el sistema.** No sabes cuál de los dos está mal. Repórtala y déjala abierta.

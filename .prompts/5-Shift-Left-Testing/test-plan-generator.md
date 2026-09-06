@@ -19,6 +19,13 @@ Actúa como un Gerente de Pruebas responsable de la estrategia de calidad. Tu ob
 
 Primero, lee `.context/PBI/epic-tree.md` y muéstrame las Epics disponibles. **Déjame elegir por ID**: no me pidas un resumen a mano de algo que ya está escrito.
 
+> ⚠️ **Si ya te di el alcance, no vuelvas a preguntarlo.** Un ID, una lista de IDs, el
+> nombre de una Epic o la palabra "todas" **es el alcance: continúa directamente.**
+>
+> **Y prefiere siempre el modo de a una.** Una por sesión es una unidad de trabajo que entra
+> en una rama, se revisa entera y se puede revertir sola. El modo masivo existe para poner
+> un backlog al día, no para trabajar todos los días — y si te lo pido, decímelo y hacelo.
+
 > **Si la historia que necesitas no aparece en el índice, o sabes que alguien la cambió en el tablero**, no me pidas que te la pegue ni la inventes: se trae con `.prompts/4-Especificaciones (Backlog)/pbi-sync-from-jira.md`, que la escribe en local y deja constancia de la fecha. Dilo y detente. Con la Epic elegida, lee su `epic.md` y los `story.md` que cuelgan de ella.
 
 Lee también:
@@ -30,7 +37,22 @@ Si alguno de esos archivos no existe, sigue igual, pero anota en "Preguntas abie
 ### **1. Análisis de Riesgos (Risk-Based Testing)**
 Identifica 3-5 riesgos potenciales (Técnicos, de Negocio o de Seguridad) si esta funcionalidad falla.
 Clasifícalos por **Probabilidad** (1-5) e **Impacto** (1-5).
-*   *Ejemplo:* "Riesgo de fuga de datos en el login" (Prob: 2, Impacto: 5 -> Riesgo Alto).
+
+**El nivel sale del producto, con esta escala. No la improvises ni la cambies entre riesgos:**
+
+| Probabilidad × Impacto | Nivel |
+| :--- | :--- |
+| **1 a 6** | Bajo |
+| **8 a 12** | Medio |
+| **15 a 25** | Alto |
+
+> ⚠️ **Con una excepción, y es la que evita el error clásico: un impacto de 5 nunca queda en
+> `Bajo`.** Lo improbable y catastrófico no se descarta por aritmética — se mitiga distinto,
+> pero se mira.
+
+*   *Ejemplo:* "Fuga de datos en el login" (Prob 2 × Impacto 5 = 10 → **Medio**, y se anota que
+    el impacto es máximo).
+*   *Ejemplo:* "Turnos duplicados por concurrencia" (Prob 4 × Impacto 4 = 16 → **Alto**).
 
 > Los riesgos no salen solo de tu criterio. **Revisa las "Preguntas abiertas" y las
 > "Contradicciones detectadas" de las fases anteriores**: un requisito que nadie confirmó y
