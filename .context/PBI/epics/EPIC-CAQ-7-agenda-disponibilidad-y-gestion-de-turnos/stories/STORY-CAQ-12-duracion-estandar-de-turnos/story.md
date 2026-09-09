@@ -2,7 +2,9 @@
 
 **ID:** CAQ-12
 **Epic:** CAQ-7
-**Implementación:** Sin verificar
+**Implementación:** Parcial
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** producción · 09/09/2026
 **Estado de sincronización:** Sincronizado con Jira (`CAQ`)
 **Refinamiento:** Refinado
 **Inspección QA:** Aprobado
@@ -59,7 +61,7 @@ Como profesional, quiero definir la duración estándar de mis turnos, para gene
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-12 y decisiones transversales aplicables.
 
 * Los únicos valores válidos son 15, 30, 45, 60, 90 y 120 minutos. El valor inicial es 60 minutos.
 * Un cambio afecta únicamente la generación de slots futuros. Nunca modifica la duración ni la hora de turnos ya creados.
@@ -70,7 +72,7 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 y deci
 
 * Probar cada opción observada y bloques con división exacta e inexacta.
 * No aprobar valores fuera de la interfaz hasta resolver la contradicción.
-* La implementación continúa `Sin verificar`.
+* Exploración 09/09/2026: catálogo verificado; cambiar y guardar la duración, remanentes y turnos existentes quedan sin recorrer (cambiarla muta la generación de slots en producción).
 
 ## Inspección Shift-Left
 
@@ -78,15 +80,22 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 y deci
 
 **Reporte:** `.context/testing/inspections/inspeccion-CAQ-12.md`
 
+## Comportamiento observado
+| Qué hace | Evidencia | Qué decía la documentación |
+| :--- | :--- | :--- |
+| `Configuración General` ofrece `Duración de la Cita (minutos)` como lista cerrada con `15`, `30`, `45`, `60`, `90` y `120 minutos`; el valor seleccionado es `30 minutos`. Hay botón `Guardar` propio de la sección. | `evidence/2026-09-09-duracion-cita.png` | Coincide con el catálogo adoptado para el release 1.1 (`.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-12). El valor inicial documentado era 60; el observado es 30 en esta cuenta. |
+| No se cambió ni guardó la duración, no se verificó descarte de remanentes ni preservación de turnos existentes. | Sin evidencia: no observado | Los escenarios 1, 3 y 5 exigen esos recorridos; quedan sin verificar. |
+
 ## Fuentes
 
 | Dato / afirmación | De dónde sale |
 | :--- | :--- |
 | Duración positiva, única y usada para dividir la franja | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 4.2 |
 | Opciones observadas de 15 a 120 minutos | `.context/architecture/prd.md` · Feature 2 |
-| Conjunto definitivo de duraciones permitidas | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 |
-| Un remanente menor que la duración no genera un horario | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 |
+| Conjunto definitivo de duraciones permitidas | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-12 |
+| Un remanente menor que la duración no genera un horario | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-12 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-12 |
+| Catálogo de duraciones y valor seleccionado | **Observado** — producción, 09/09/2026. Evidencia: `evidence/2026-09-09-duracion-cita.png` |
 
 ## Contradicciones detectadas
 
