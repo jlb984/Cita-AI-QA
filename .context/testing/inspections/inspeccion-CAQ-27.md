@@ -25,7 +25,7 @@ La versión vigente de `story.md` contiene 7 escenarios verificables e incorpora
 | :--- | :--- |
 | Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-10-clientes-y-limite-freemium\stories\STORY-CAQ-27-limite-de-diez-clientes-unicos\story.md` |
 | Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 5 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-27 y decisiones transversales aplicables |
+| Reglas vigentes del release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-27 y decisiones transversales aplicables |
 
 ## Contradicciones detectadas
 

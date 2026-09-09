@@ -69,7 +69,7 @@ Como responsable del producto, quiero limitar el plan gratuito a diez clientes �
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-27 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-27 y decisiones transversales aplicables.
 
 * El conteo usa el correo normalizado por profesional.
 * Un cliente comienza a contar cuando se crea manualmente o cuando obtiene su primer turno `confirmed`.
@@ -97,7 +97,7 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-27 y deci
 | Límite, unicidad por correo y continuidad de clientes existentes | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 8.1 |
 | Bloqueo de reserva y alta manual | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 8.2 |
 | Mensaje al cliente nuevo bloqueado | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 8.2 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-27 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-27 |
 
 ## Contradicciones detectadas
 
