@@ -2,8 +2,10 @@
 
 **ID:** CAQ-3
 **Epic:** CAQ-2
-**Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Implementación:** Parcial
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** Producción · 2026-09-07 / 2026-09-08 / 09/09/2026
+**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA
 **Refinamiento:** Refinado
 **Inspección QA:** Aprobado
 
@@ -27,15 +29,10 @@ Como profesional, quiero registrarme con mi nombre completo, correo electrónico
 ### Escenario 1: Registro exitoso del profesional
 
 **Given** que el correo electrónico no está registrado y el profesional informa un nombre completo de hasta 100 caracteres, un correo válido de hasta 254 caracteres y una contraseña de al menos 8 caracteres con una mayúscula y un número
-
 **When** envía el formulario de registro
-
 **Then** el sistema crea la cuenta e inicia la sesión automáticamente
-
 **And** genera una URL pública única para el profesional
-
 **And** redirige al asistente de configuración inicial
-
 **And** envía el correo de bienvenida al profesional
 
 ### Escenario 2: Rechazo del nombre obligatorio vacío
@@ -60,85 +57,52 @@ Como profesional, quiero registrarme con mi nombre completo, correo electrónico
 **And** no crea la cuenta
 
 ### Escenario 5: Rechazo de un nombre que supera el máximo
-
 **Given** que el profesional informa un nombre completo de más de 100 caracteres
-
 **When** intenta registrarse
-
 **Then** el sistema rechaza el registro
-
 **And** no crea la cuenta
 
 ### Escenario 6: Rechazo de un correo con formato inválido
-
 **Given** que el profesional informa un correo electrónico con formato inválido
-
 **When** intenta registrarse
-
 **Then** el sistema rechaza el registro
-
 **And** no crea la cuenta
 
 ### Escenario 7: Rechazo de un correo que supera el máximo
-
 **Given** que el profesional informa un correo electrónico de más de 254 caracteres
-
 **When** intenta registrarse
-
 **Then** el sistema rechaza el registro
-
 **And** no crea la cuenta
 
 ### Escenario 8: Rechazo de un correo ya registrado
-
 **Given** que ya existe una cuenta con el correo electrónico informado
-
 **When** el profesional intenta registrarse con ese correo
-
 **Then** el sistema rechaza el registro con el mensaje «El email ya está en uso»
-
 **And** ofrece un enlace a la recuperación de contraseña
-
 **And** no crea una segunda cuenta
 
 ### Escenario 9: Rechazo de una contraseña demasiado corta
-
 **Given** que el profesional informa una contraseña de menos de 8 caracteres
-
 **When** intenta registrarse
-
 **Then** el sistema rechaza el registro con el mensaje «La contraseña es muy corta»
-
 **And** no crea la cuenta
 
 ### Escenario 10: Rechazo de una contraseña sin mayúscula
-
 **Given** que el profesional informa una contraseña de al menos 8 caracteres y con un número, pero sin ninguna letra mayúscula
-
 **When** intenta registrarse
-
 **Then** el sistema rechaza el registro
-
 **And** no crea la cuenta
 
 ### Escenario 11: Rechazo de una contraseña sin número
-
 **Given** que el profesional informa una contraseña de al menos 8 caracteres y con una letra mayúscula, pero sin ningún número
-
 **When** intenta registrarse
-
 **Then** el sistema rechaza el registro
-
 **And** no crea la cuenta
 
 ### Escenario 12: Generación de una URL única ante nombres coincidentes
-
 **Given** que ya existe en la plataforma una URL pública generada a partir del mismo nombre completo
-
 **When** se completa el registro del nuevo profesional
-
 **Then** el sistema agrega a la URL un sufijo numérico incremental que no esté utilizado
-
 **And** la URL resultante es única en toda la plataforma
 
 ### Escenario 13: Normalizar nombre y correo antes del alta
@@ -162,7 +126,7 @@ Como profesional, quiero registrarme con mi nombre completo, correo electrónico
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-3 y decisiones transversales aplicables.
 
 * El nombre se recorta al inicio y al final, conserva acentos y espacios internos, y debe contener entre 1 y 100 caracteres Unicode.
 * El correo se recorta, se guarda en minúsculas y se compara sin distinguir mayúsculas. Su máximo es 254 caracteres.
@@ -175,22 +139,12 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3 y decis
   * Correo duplicado: `El email ya está en uso.` y enlace a recuperación.
   * Contraseña inválida: `La contraseña debe tener entre 8 y 72 caracteres, una mayúscula y un número.`
 * No se exige confirmar el correo antes de utilizar la cuenta. El registro válido inicia sesión inmediatamente.
-* Si se creó el usuario de Auth pero falló perfil, slug o configuración inicial, la cuenta queda en onboarding incompleto. El siguiente ingreso reintenta idempotentemente los pasos faltantes y nunca crea otra cuenta.
-* Una falla del correo de bienvenida no revierte el alta. Se registra el fallo y se reintenta según la política de correos de la sección 7.
 
-## Notas de QA
+## Comportamiento observado
 
-* Probar los límites de nombre con 100 y 101 caracteres, y los de correo con 254 y 255 caracteres.
-* Cubrir contraseñas de 7 y 8 caracteres, con y sin mayúscula, y con y sin número.
-* Usar cuentas y correos sintéticos en un entorno habilitado para pruebas; no crear datos ni enviar correos desde producción sin autorización.
-* Verificar por separado los cinco efectos del flujo exitoso: cuenta, sesión, URL, redirección y correo.
-* La implementación continúa `Sin verificar`; este refinamiento no confirma el comportamiento de la interfaz ni de Supabase.
-
-## Inspección Shift-Left
-
-**Resultado:** Aprobado
-
-**Reporte:** `.context/testing/inspections/inspeccion-CAQ-3.md`
+| Qué hace | Evidencia | Qué decía la documentación |
+| :--- | :--- | :--- |
+| En la vista `/login`, la interfaz presenta el enlace interactivo `Regístrate gratis` para alternar al formulario de registro de profesionales. | `evidence/2026-09-07-enlace-registro-gratis.png` | Coincide con la sección 3.1 de la especificación funcional (`.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md`). |
 
 ## Fuentes
 
@@ -200,16 +154,13 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3 y decis
 | Nombre obligatorio, no vacío y de hasta 100 caracteres | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.1 |
 | Correo obligatorio, válido, de hasta 254 caracteres y no registrado previamente | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.1 |
 | Contraseña obligatoria de al menos 8 caracteres, con una mayúscula y un número | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.1 |
-| Mensajes «El email ya está en uso» y «La contraseña es muy corta» | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.1 |
-| El correo duplicado ofrece un enlace a recuperación de contraseña | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.1 |
-| El registro crea la cuenta y la sesión, genera la URL, redirige a la configuración y envía la bienvenida | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · secciones 3.1 y 7; `.context/architecture/prd.md` · Feature 1 y User Journeys |
-| La URL se normaliza desde el nombre y resuelve colisiones con un sufijo numérico incremental | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.4 |
-| Los correos de producto se envían mediante Resend | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · resumen del 03/03/2026 y correo del 28/02/2026 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3 |
+| Enlace `Regístrate gratis` visible en la portada de autenticación | **Observado** — Producción, 2026-09-07. Evidencia: `evidence/2026-09-07-enlace-registro-gratis.png` |
+| Email inválido bloqueado por validación nativa sin request | **Observado** — producción, 09/09/2026. Evidencia: `evidence/2026-09-09-cuenta-registro-email-invalido-pass.png` |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-3 |
 
 ## Contradicciones detectadas
 
-* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
+* Ninguna detectada.
 
 ## Preguntas abiertas
 
