@@ -25,7 +25,7 @@ La versión vigente de `story.md` contiene 9 escenarios verificables e incorpora
 | :--- | :--- |
 | Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-2-cuenta-y-activacion-del-profesional\stories\STORY-CAQ-6-acceso-a-url-publica\story.md` |
 | Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 1 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-6 y decisiones transversales aplicables |
+| Reglas vigentes del release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-6 y decisiones transversales aplicables |
 | Comportamiento contrastado | **Observado** — producción, 30/08/2026. Evidencia: `.context/architecture/prd.md` · Feature 1, User Journeys y Fuentes. |
 
 ## Contradicciones detectadas
