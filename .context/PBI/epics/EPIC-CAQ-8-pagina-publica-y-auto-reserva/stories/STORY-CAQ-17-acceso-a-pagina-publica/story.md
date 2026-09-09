@@ -57,7 +57,7 @@ Como cliente final, quiero acceder a la página pública de un profesional, para
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-17 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-17 y decisiones transversales aplicables.
 
 * Los únicos datos públicos son nombre visible, zona horaria, duración estándar y slots disponibles.
 * Correo del profesional, identificadores internos, configuración privada y datos de otros clientes nunca son públicos.
@@ -83,8 +83,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-17 y deci
 | Acceso público sin cuenta y por slug | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · secciones 2.2 y 3.4 |
 | Consulta pública del perfil | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Row level security y endpoints públicos |
 | Dominio vigente | `.context/Confluence-corporativo/documentacion para QA/nota-ambientes-y-accesos.md` · La dirección |
-| Contenido visual exacto del perfil | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-17 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-17 |
+| Contenido visual exacto del perfil | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-17 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-17 |
 
 ## Contradicciones detectadas
 
