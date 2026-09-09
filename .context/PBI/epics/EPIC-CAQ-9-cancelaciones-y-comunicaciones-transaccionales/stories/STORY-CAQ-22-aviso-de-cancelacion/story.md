@@ -58,7 +58,7 @@ Como parte de un turno cancelado, quiero recibir un aviso, para conocer el cambi
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-22 y decisiones transversales aplicables.
 
 **Política común de correos de producto**
 
@@ -93,8 +93,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 y deci
 | :--- | :--- |
 | Destinatario y contenido del aviso | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · secciones 6.3 y 7 |
 | Existencia actual del correo de cancelación | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · correo del 28/02/2026 |
-| Manejo de una falla de correo posterior a cancelar | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-22 |
+| Manejo de una falla de correo posterior a cancelar | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-22 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-22 |
 
 ## Contradicciones detectadas
 
