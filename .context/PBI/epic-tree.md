@@ -2,7 +2,7 @@
 
 **Origen:** `.context/architecture/prd.md`
 **Fuentes del backlog:** documentación local y respaldo histórico de Confluence
-**Decisiones vigentes para el próximo release:** `.context/PBI/decisiones-po-proximo-release.md`
+**Decisiones vigentes para el próximo release:** `.context/product-decisions/decisiones-po-proximo-release.md`
 **Jira canónico:** `https://jlb984.atlassian.net/` · Project Key `CAQ`
 **GitHub canónico:** `https://github.com/jlb984/Cita-AI-QA`
 **Adaptación local:** completada y documentada en `.context/PBI/reconciliacion-backlog-caq.md`
@@ -11,7 +11,7 @@
 
 | Epic | Stories | Refinadas | Inspeccionadas | Sin verificar | Estado de sincronización |
 | :--- | :---: | :---: | :---: | :---: | :--- |
-| CAQ-2 [Epic] Cuenta y activación del profesional | 4 | 4 | 4 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
+| CAQ-2 [Epic] Cuenta y activación del profesional | 4 | 4 | 4 | 0 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
 | CAQ-7 [Epic] Agenda, disponibilidad y gestión de turnos | 5 | 5 | 5 | 5 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
 | CAQ-8 [Epic] Página pública y auto-reserva | 4 | 4 | 4 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
 | CAQ-9 [Epic] Cancelaciones y comunicaciones transaccionales | 5 | 5 | 5 | 4 | SINCRONIZADO Y VERIFICADO EN JIRA (CAQ) |
@@ -38,7 +38,7 @@
 | Escenarios netos agregados en esta corrida | 71 |
 | Stories con preguntas funcionales abiertas | 0 |
 
-Las decisiones vigentes de `.context/PBI/decisiones-po-proximo-release.md` se incorporaron
+Las decisiones vigentes de `.context/product-decisions/decisiones-po-proximo-release.md` se incorporaron
 como reglas explícitas y escenarios verificables. Las preguntas que permanecen en cuatro
 Stories son de diagnóstico técnico sobre discrepancias ya observadas, no decisiones
 funcionales pendientes.
@@ -74,8 +74,10 @@ decisiones de Producto, sin duplicados.
 
 ## Pendiente de verificar contra la aplicación
 
-* Todas las Stories excepto CAQ-21 permanecen `Sin verificar` por tratarse de un proyecto
-  Brownfield y existir únicamente un entorno de producción con datos reales.
+* Las Stories de la Epic CAQ-2 (`CAQ-3`, `CAQ-4`, `CAQ-5`, `CAQ-6`) y `CAQ-21` cuentan con verificación/documentación de evidencia observada en producción. Las demás Stories continúan `Sin verificar`.
+* CAQ-3 y CAQ-5 fueron documentadas con punto de entrada verificado en la interfaz pública (`/login`).
+* CAQ-4 fue documentada y verificada parcialmente: el flujo de login/dashboard funciona, pero el logout no bloquea el renderizado en cliente al navegar directamente o usar el historial.
+* CAQ-6 fue verificada como Implementada: la tarjeta «Tu enlace público de reservas» se visualiza y opera correctamente en `/dashboard`.
 * CAQ-21 fue verificada parcialmente en producción con un turno sintético: la UI inicia la cancelación, pero el cambio no persiste ni libera el horario.
 
 ## Contradicciones detectadas
