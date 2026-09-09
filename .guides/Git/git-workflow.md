@@ -24,15 +24,15 @@ Una **Rama** es una copia paralela del proyecto donde puedes trabajar tranquilo 
 
 ### Nomenclatura Recomendada para QA
 
-El nombre sigue el patrón `tipo/ID-DEL-TICKET-descripcion-corta`:
+El nombre sigue el patrón `tipo/ID-DEL-TICKET/descripcion-corta`:
 
 | Prefijo | Uso | Ejemplo |
 | :--- | :--- | :--- |
-| **docs/** | Documentación nueva o actualizada | `docs/QA-1122-login-mfa` |
-| **prompts/** | Creación o mejora de Prompts | `prompts/QA-1188-analisis-riesgos` |
-| **test/** | Casos de prueba o scripts | `test/QA-1150-regresion-pagos` |
-| **fix/** | Corrección de errores en docs | `fix/QA-1163-limite-freemium` |
-| **chore/** | Mantenimiento, orden, configuración | `chore/QA-1201-reordenar-carpetas` |
+| **docs/** | Documentación nueva o actualizada | `docs/QA-1122/login-mfa` |
+| **prompts/** | Creación o mejora de Prompts | `prompts/QA-1188/analisis-riesgos` |
+| **test/** | Casos de prueba o scripts | `test/QA-1150/regresion-pagos` |
+| **fix/** | Corrección de errores en docs | `fix/QA-1163/limite-freemium` |
+| **chore/** | Mantenimiento, orden, configuración | `chore/QA-1201/reordenar-carpetas` |
 
 **El ID del ticket es lo que más trabaja**: es el hilo que conecta el ticket, la rama, los
 commits y el cambio incorporado. Sin él, dentro de seis meses la respuesta a *"¿por qué este
@@ -68,7 +68,7 @@ Antes de nada, asegúrate de tener lo último de `main`:
 ```bash
 git checkout main
 git pull origin main
-git checkout -b docs/US-505-pago-qr
+git checkout -b docs/US-505/pago-qr
 ```
 
 ### Paso 2: Trabajar
@@ -78,7 +78,7 @@ Creas los archivos, modificas los prompts, escribes los casos de prueba.
 ### Paso 3: Subir tu Rama
 Cuando termines, sube **tu rama** a la nube (no a `main`):
 ```bash
-git push origin docs/US-505-pago-qr
+git push origin docs/US-505/pago-qr
 ```
 
 ### Paso 4: Pull Request (Revisión de Pares)
