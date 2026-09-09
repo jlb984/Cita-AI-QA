@@ -40,7 +40,7 @@
 | Carrera y flujo público | `.context/PBI/epics/EPIC-CAQ-8-pagina-publica-y-auto-reserva/epic.md` y sus Stories |
 | Producción única | `.context/infrastructure/environments.md` · Mapa de Entornos |
 | Sin datos mutantes | `.context/infrastructure/test-data-strategy.md` · Restricción inmediata |
-| Reglas y objetivos vigentes | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-16 a CAQ-19 y 2.6 |
+| Reglas y objetivos vigentes | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-16 a CAQ-19 y 2.6 |
 | Scoring | **Hipótesis** — valoración de riesgo de QA |
 
 ## Contradicciones detectadas

@@ -40,7 +40,7 @@
 | Riesgos de agenda | `.context/PBI/epics/EPIC-CAQ-7-agenda-disponibilidad-y-gestion-de-turnos/epic.md` y sus Stories |
 | Restricción productiva | `.context/infrastructure/environments.md` · Riesgos |
 | Fixtures faltantes | `.context/infrastructure/test-data-strategy.md` · Generación de Datos Sintéticos |
-| Reglas y objetivos vigentes | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-12 a CAQ-15 y 2.6 |
+| Reglas y objetivos vigentes | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-12 a CAQ-15 y 2.6 |
 | Scoring | **Hipótesis** — valoración de riesgo de QA |
 
 ## Contradicciones detectadas
