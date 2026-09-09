@@ -3,7 +3,9 @@
 **ID:** CAQ-18
 **Epic:** CAQ-8
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** producción · 09/09/2026
+**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA
 **Refinamiento:** Refinado
 **Inspección QA:** Aprobado
 
@@ -73,7 +75,7 @@ Como cliente final, quiero confirmar un turno sin crear una cuenta, para reserva
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-18 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-18 y decisiones transversales aplicables.
 
 * Nombre y correo usan las mismas reglas de normalización y máximos de CAQ-3. No se solicita contraseña.
 * La confirmación visible muestra `Tu turno fue reservado`, profesional, fecha, hora, zona y aviso de que el enlace de cancelación llegará por correo.
@@ -100,13 +102,14 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-18 y deci
 | Reserva con nombre y correo, sin cuenta | `.context/Confluence-corporativo/01-minuta-kickoff.md` · Los dos usuarios del sistema; `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 5.1 |
 | Revalidación antes de guardar | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · RN-02 |
 | Estado confirmado sin aprobación | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 9 |
-| Rechazo de nombre o correo inválidos | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-18 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-18 |
+| Rechazo de nombre o correo inválidos | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-18 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-18 |
+| Resumen y validación de email observados (sin confirmar) | **Observado** — producción, 09/09/2026. Evidencia: `evidence/2026-09-09-publica-formulario-resumen-pass.png` |
 
 ## Contradicciones detectadas
 
-* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
+* 2.2 exige fecha y hora con identificador o abreviatura de zona visible; el resumen observado dice `miércoles, 9 de septiembre a las 11:00 hs` sin zona. No se elige: o falta el identificador, o hay otra regla que lo exime.
 
 ## Preguntas abiertas
 
-* Ninguna pendiente de decisión funcional.
+* Ninguna pendiente de decisión funcional salvo: ¿el resumen debe llevar la zona visible según 2.2?
