@@ -3,7 +3,9 @@
 **ID:** CAQ-25
 **Epic:** CAQ-10
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** producción · 09/09/2026
+**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA
 **Refinamiento:** Refinado
 **Inspección QA:** Aprobado
 
@@ -67,7 +69,7 @@ Como profesional, quiero consultar mi listado de clientes, para conocer a las pe
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-25 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-25 y decisiones transversales aplicables.
 
 * El correo se normaliza con trim y minúsculas para determinar unicidad dentro de cada profesional.
 * El listado se ordena alfabéticamente por nombre y, ante empate, por correo.
@@ -95,7 +97,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-25 y deci
 | Asociación por turnos y unicidad por correo | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Tablas y límite del plan gratuito |
 | Nombre y correo del cliente | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 2.2 |
 | Historial por cliente | **Pregunta abierta** — aparece como necesidad en entrevistas, pero no forma parte del comportamiento especificado |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-25 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-25 |
+| Lista con 2 clientes sintéticos observada | **Observado** — producción, 09/09/2026. Evidencia: `evidence/2026-09-09-clientes-nuevo-sin-dialogo-fail.png` |
 
 ## Contradicciones detectadas
 
