@@ -73,7 +73,7 @@ Como profesional, quiero cancelar un turno desde mi panel, para actualizar mi ag
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-21 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-21 y decisiones transversales aplicables.
 
 * Aplica la ventana general de 2 horas.
 * El motivo es opcional y admite hasta 250 caracteres. No se exigirá hasta que una necesidad posterior lo justifique.
@@ -116,7 +116,7 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-21 y deci
 | Al iniciar la cancelación del turno del 3 de septiembre a las 07:00, la aplicación mostró el texto literal “¿Estás seguro de que deseas cancelar esta cita? Esta acción no se puede deshacer.” en un diálogo nativo del navegador y no solicitó motivo. Al aceptar, retiró inmediatamente ese turno de la lista. El diálogo no pudo capturarse porque Playwright bloquea las capturas mientras está abierto; el estado anterior y posterior sí quedó evidenciado. | `evidence/2026-09-02-turno-futuro-con-accion-cancelar.png` y `evidence/2026-09-02-turno-cancelado-retirado-de-proximas-citas.png` | La documentación deja el motivo como `TBD`; no exige confirmación ni define su texto. |
 | La cancelación no persistió: una navegación nueva del dashboard volvió a mostrar el mismo turno y `GET /api/appointments` lo devolvió con `status: "confirmed"`. | `evidence/2026-09-02-turno-reaparece-tras-recarga-sin-cache.png` y `evidence/2026-09-02-api-turno-permanece-confirmed.png` | Contradice la sección 6.3, que exige que el turno pase a estado cancelado. |
 | El horario tampoco volvió a la oferta pública: para el 3 de septiembre se ofrecieron 09:00, 09:30 y luego 10:30, pero no 10:00, instante UTC del turno que el dashboard presentó como 07:00 en `America/Buenos_Aires`. La respuesta de `GET /api/public/availability` confirmó la misma ausencia. | `evidence/2026-09-02-slot-cancelado-no-disponible-en-pagina-publica.png` y `evidence/2026-09-02-api-slot-cancelado-no-liberado.png` | Contradice la sección 6.3, que exige que el horario vuelva a estar disponible. |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-21 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-21 |
 
 ## Contradicciones detectadas
 
