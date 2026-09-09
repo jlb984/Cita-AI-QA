@@ -25,7 +25,7 @@ La versión vigente de `story.md` contiene 7 escenarios verificables e incorpora
 | :--- | :--- |
 | Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-9-cancelaciones-y-comunicaciones-transaccionales\stories\STORY-CAQ-21-cancelacion-por-profesional\story.md` |
 | Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 4 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-21 y decisiones transversales aplicables |
+| Reglas vigentes del release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-21 y decisiones transversales aplicables |
 | Comportamiento contrastado | **Observado** — producción, 02/09/2026. Evidencia: `.context/PBI/epics/EPIC-CAQ-9-cancelaciones-y-comunicaciones-transaccionales/stories/STORY-CAQ-21-cancelacion-por-profesional/evidence/2026-09-02-api-turno-permanece-confirmed.png` y `.context/PBI/epics/EPIC-CAQ-9-cancelaciones-y-comunicaciones-transaccionales/stories/STORY-CAQ-21-cancelacion-por-profesional/evidence/2026-09-02-api-slot-cancelado-no-liberado.png`. |
 
 ## Contradicciones detectadas
