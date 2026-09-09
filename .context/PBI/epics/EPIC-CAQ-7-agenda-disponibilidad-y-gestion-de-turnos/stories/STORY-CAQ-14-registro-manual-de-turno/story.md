@@ -2,10 +2,12 @@
 
 **ID:** CAQ-14
 **Epic:** CAQ-7
-**Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Implementación:** No encontrada
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** producción · 09/09/2026
+**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA
 **Refinamiento:** Refinado
-**Inspección QA:** Aprobado
+**Inspección QA:** Bloqueante
 
 ## Descripción
 
@@ -67,7 +69,7 @@ Como profesional, quiero registrar un turno manualmente, para incorporar reserva
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-14 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-14 y decisiones transversales aplicables.
 
 * Se puede seleccionar un cliente existente o crear uno con nombre y correo bajo las reglas de CAQ-3.
 * Se requieren cliente, fecha y hora futura. Se admite una nota opcional de hasta 250 caracteres.
@@ -80,13 +82,19 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-14 y deci
 
 * Probar cliente existente, cliente nuevo décimo y cliente nuevo número once.
 * Validar ausencia de duplicados ante envíos repetidos.
-* La implementación continúa `Sin verificar`.
+* Exploración 09/09/2026: el flujo de alta manual no se encontró en el panel (ver Comportamiento observado); ningún escenario pudo recorrerse.
 
 ## Inspección Shift-Left
 
-**Resultado:** Aprobado
+**Resultado:** Bloqueante (09/09/2026; anterior: Aprobado)
 
 **Reporte:** `.context/testing/inspections/inspeccion-CAQ-14.md`
+
+## Comportamiento observado
+| Qué hace | Evidencia | Qué decía la documentación |
+| :--- | :--- | :--- |
+| El panel solo expone las rutas `/dashboard`, `/dashboard/availability` y `/dashboard/clients`; ninguna muestra acción de alta de turno. `Mis Clientes` lista 2 clientes (`Prueba QA 1`, `QA Sintetico 20260907`) con botones `Nuevo Cliente` y `Contactar`; `Contactar` no abre diálogo ni navega. | `evidence/2026-09-09-clientes-sin-alta-turno.png` | Las decisiones describen un flujo del panel para seleccionar cliente y horario (`.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-14) que no se encontró donde se buscó. |
+| Flujo buscado en `/dashboard`, `/dashboard/availability` y `/dashboard/clients` el 09/09/2026 con sesión profesional: no existe botón ni ruta de registro manual de turno. | `evidence/2026-09-09-clientes-sin-alta-turno.png` | **Nada: ningún documento alternativo indica otra ubicación del flujo.** |
 
 ## Fuentes
 
@@ -95,13 +103,16 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-14 y deci
 | Existencia de turnos cargados manualmente | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · métricas del soft launch; `.context/Confluence-corporativo/06-tickets-soporte-resumen.md` · ticket #33 |
 | Asociación, estado y ausencia de superposición | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Tablas y reserva; `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · secciones 5.2 y 9 |
 | Aplicación del límite a altas manuales | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 8.1 |
-| Flujo del panel para seleccionar cliente y horario | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-14 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-14 |
+| Flujo del panel para seleccionar cliente y horario | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-14 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-14 |
+| Ausencia del flujo en las rutas del panel | **Observado** — producción, 09/09/2026. Evidencia: `evidence/2026-09-09-clientes-sin-alta-turno.png` |
 
 ## Contradicciones detectadas
 
-* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
+* Las decisiones de Producto describen un flujo del panel para alta manual (`.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-14); el panel observado no expone esa acción en ninguna de sus tres rutas (`evidence/2026-09-09-clientes-sin-alta-turno.png`). No se elige: o el flujo vive en otra ruta no enlazada, o no está construido.
+* Inspección 09/09/2026: el registro manual no figura en `.context/architecture/prd.md` · Feature 2 (lista disponibilidad, duración, bloqueos, consulta y cancelación). La regla llega del hilo de alcance y soporte sin contraste contra el PRD.
 
 ## Preguntas abiertas
 
-* Ninguna pendiente de decisión funcional.
+* Ninguna pendiente de decisión funcional. Queda abierta: ¿dónde está el registro manual de turnos, o es funcionalidad no construida?
+* Inspección 09/09/2026: ¿el registro manual es alcance vigente aunque el PRD no lo liste?

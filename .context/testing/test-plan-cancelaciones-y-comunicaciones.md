@@ -41,7 +41,7 @@
 | Falla observada de CAQ-21 | `.context/PBI/epics/EPIC-CAQ-9-cancelaciones-y-comunicaciones-transaccionales/stories/STORY-CAQ-21-cancelacion-por-profesional/story.md` |
 | Restricción de entorno | `.context/infrastructure/environments.md` · Riesgos |
 | Datos necesarios | `.context/infrastructure/test-data-strategy.md` · Escenarios mínimos |
-| Reglas vigentes | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 a CAQ-23 y 7.1 |
+| Reglas vigentes | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-20 a CAQ-23 y 7.1 |
 | Scoring | **Hipótesis** — valoración de riesgo de QA |
 
 ## Contradicciones detectadas

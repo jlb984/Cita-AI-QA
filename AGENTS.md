@@ -100,7 +100,7 @@ For documentation changes, verify rendered headings, tables, code fences, paths,
 
 ## Commit & Pull Request Guidelines
 
-Never work directly on `main`. Use branches such as `docs/US-1122-login`, `prompts/mejora-analisis`, `test/regresion-pagos`, or `fix/typo-readme`. Follow the history's Conventional Commit style: `docs(context): ...`, `feat(prompts): ...`, or `chore(repo): ...`. Pull requests should explain the purpose, list affected phases or paths, link the relevant issue/Jira item when available, and describe validation. Include screenshots only when rendered or visual output changed.
+Never work directly on `main`. Use branches such as `docs/US-1122/login`, `prompts/mejora-analisis`, `test/regresion-pagos`, or `fix/typo-readme`. Follow the history's Conventional Commit style: `docs(context): ...`, `feat(prompts): ...`, or `chore(repo): ...`. Pull requests should explain the purpose, list affected phases or paths, link the relevant issue/Jira item when available, and describe validation. Include screenshots only when rendered or visual output changed.
 
 ## Security & Configuration
 

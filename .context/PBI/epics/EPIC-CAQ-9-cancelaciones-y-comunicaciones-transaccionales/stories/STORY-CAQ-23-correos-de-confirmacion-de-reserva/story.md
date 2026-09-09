@@ -59,7 +59,7 @@ Como participante de una reserva, quiero recibir su confirmación por correo, pa
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-23 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-23 y decisiones transversales aplicables.
 
 **Política común de correos de producto**
 
@@ -94,8 +94,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-23 y deci
 | :--- | :--- |
 | Destinatarios, detalle y enlace de cancelación | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 7 |
 | Proveedor vigente Resend | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · resumen del 03/03/2026 |
-| Independencia entre creación y entrega | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-23 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-23 |
+| Independencia entre creación y entrega | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-23 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-23 |
 
 ## Contradicciones detectadas
 

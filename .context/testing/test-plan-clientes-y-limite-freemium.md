@@ -40,7 +40,7 @@
 | Límite y CTA | `.context/PBI/epics/EPIC-CAQ-10-clientes-y-limite-freemium/epic.md` y sus Stories |
 | Riesgo PII | `.context/infrastructure/test-data-strategy.md` · Privacidad y Seguridad |
 | Entorno único | `.context/infrastructure/environments.md` · Mapa de Entornos |
-| Reglas vigentes | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-25 a CAQ-28 |
+| Reglas vigentes | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-25 a CAQ-28 |
 | Scoring | **Hipótesis** — valoración de riesgo de QA |
 
 ## Contradicciones detectadas

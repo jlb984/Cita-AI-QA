@@ -173,3 +173,87 @@ default_tools_approval_mode = 'writes'
 # 4. Para servidores OAuth, ejecuta codex mcp login <nombre>.
 # 5. Verifica la configuración con codex mcp get <nombre> y codex mcp list.
 # 6. Abre una sesión nueva de Codex y realiza una llamada de lectura controlada.
+
+
+
+
+
+
+
+# =============================================================================
+# ATLASSIAN PARA JIRA CLOUD MEDIANTE USUARIO Y API TOKEN
+# =============================================================================
+#
+# Plantilla alternativa a la conexión OAuth oficial. Todo el bloque está
+# comentado: Codex no lo carga ni inicia el servidor hasta que se copie o se
+# descomente de forma explícita en una configuración activa.
+#
+# El servidor `mcp-atlassian` es comunitario y se ejecuta mediante `uvx`.
+# Requiere que `uv`/`uvx` esté instalado y disponible en PATH.
+#
+# PowerShell (sesión actual):
+#   $env:JIRA_URL = 'https://jlb984.atlassian.net'
+#   $env:JIRA_USERNAME = '<CORREO_DE_ATLASSIAN>'
+#   $env:JIRA_API_TOKEN = '<API_TOKEN_DE_ATLASSIAN>'
+#
+# Bash (sesión actual):
+#   export JIRA_URL='https://jlb984.atlassian.net'
+#   export JIRA_USERNAME='<CORREO_DE_ATLASSIAN>'
+#   export JIRA_API_TOKEN='<API_TOKEN_DE_ATLASSIAN>'
+#
+# Variables permanentes en Windows para el usuario actual:
+#   [Environment]::SetEnvironmentVariable('JIRA_URL', 'https://jlb984.atlassian.net', 'User')
+#   [Environment]::SetEnvironmentVariable('JIRA_USERNAME', '<CORREO_DE_ATLASSIAN>', 'User')
+#   [Environment]::SetEnvironmentVariable('JIRA_API_TOKEN', '<API_TOKEN_DE_ATLASSIAN>', 'User')
+#
+# Los procesos que ya están abiertos no reciben los cambios. Cierra y vuelve a
+# abrir la terminal y Codex después de ejecutar esos comandos. Las variables de
+# usuario de Windows no son un almacén cifrado de secretos: protege la sesión y
+# usa un gestor de credenciales si el equipo es compartido.
+#
+# Variables permanentes en Bash:
+#   Agrega los tres `export` anteriores a `~/.bashrc` (o a `~/.zshrc` si usas
+#   Zsh), restringe los permisos del archivo y abre una terminal nueva. Esta
+#   opción guarda el token como texto legible en el perfil del usuario.
+#
+# Alternativa con `.env` en la raíz del proyecto:
+#   JIRA_URL=https://jlb984.atlassian.net
+#   JIRA_USERNAME=<CORREO_DE_ATLASSIAN>
+#   JIRA_API_TOKEN=<API_TOKEN_DE_ATLASSIAN>
+#
+# `uvx` no carga `.env` por sí solo. `mcp-atlassian` sí puede hacerlo, pero para
+# no depender del directorio desde el que Codex inicia el proceso conviene usar
+# una ruta explícita. En ese caso reemplaza las líneas `args` y `env_vars` del
+# bloque principal por estas líneas, también descomentadas:
+#
+# cwd = '<RUTA_ABSOLUTA_AL_PROYECTO>'
+# args = ['mcp-atlassian', '--env-file', '<RUTA_ABSOLUTA_AL_PROYECTO>/.env']
+#
+# y se debe eliminar la linea env_vars
+#
+# `.env` ya está ignorado por Git. No lo abras desde el agente, no lo subas al
+# repositorio y no dupliques el token además en variables permanentes: elige un
+# único mecanismo de almacenamiento.
+#
+# Para activarlo en el futuro, copia el bloque siguiente a `.codex/config.toml`
+# y quita `# ` al inicio de cada línea. `env_vars` reenvía únicamente los
+# nombres indicados desde el entorno; no contiene sus valores.
+#
+# [mcp_servers.atlassian-api-token]
+# command = 'uvx'
+# args = ['mcp-atlassian']
+# env_vars = ['JIRA_URL', 'JIRA_USERNAME', 'JIRA_API_TOKEN']
+# startup_timeout_sec = 30
+# tool_timeout_sec = 120
+# enabled = true
+# required = false
+# default_tools_approval_mode = 'writes'
+#
+# Verificación después de activarlo:
+#   codex mcp get atlassian-api-token
+#   codex mcp list
+#
+# Abre una sesión nueva de Codex para que las herramientas aparezcan. Si falta
+# cualquiera de las tres variables, no intentes reemplazarla con un valor en el
+# archivo: define la variable fuera del repositorio y reinicia la sesión.
+

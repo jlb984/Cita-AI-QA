@@ -40,7 +40,7 @@
 | Riesgos funcionales | `.context/PBI/epics/EPIC-CAQ-2-cuenta-y-activacion-del-profesional/epic.md` y sus Stories |
 | Entorno único | `.context/infrastructure/environments.md` · Mapa de Entornos |
 | Datos mutantes no disponibles | `.context/infrastructure/test-data-strategy.md` · Fuentes de Datos |
-| Reglas y objetivos vigentes | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-3, CAQ-4 a CAQ-6 y 2.6 |
+| Reglas y objetivos vigentes | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-3, CAQ-4 a CAQ-6 y 2.6 |
 | Probabilidad, impacto y nivel | **Hipótesis** — valoración de riesgo de QA |
 
 ## Contradicciones detectadas

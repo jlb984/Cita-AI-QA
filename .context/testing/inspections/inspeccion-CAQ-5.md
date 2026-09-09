@@ -25,7 +25,7 @@ La versión vigente de `story.md` contiene 12 escenarios verificables e incorpor
 | :--- | :--- |
 | Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-2-cuenta-y-activacion-del-profesional\stories\STORY-CAQ-5-recuperacion-de-contrasena\story.md` |
 | Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 1 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 y decisiones transversales aplicables |
+| Reglas vigentes del release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-5 y decisiones transversales aplicables |
 
 ## Contradicciones detectadas
 
