@@ -25,7 +25,7 @@ La versión vigente de `story.md` contiene 5 escenarios verificables e incorpora
 | :--- | :--- |
 | Criterios y escenarios inspeccionados | `.context\PBI\epics\EPIC-CAQ-8-pagina-publica-y-auto-reserva\stories\STORY-CAQ-17-acceso-a-pagina-publica\story.md` |
 | Alcance funcional contrastado | `.context/architecture/prd.md` · Feature 3 |
-| Reglas vigentes del release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-17 y decisiones transversales aplicables |
+| Reglas vigentes del release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-17 y decisiones transversales aplicables |
 
 ## Contradicciones detectadas
 
