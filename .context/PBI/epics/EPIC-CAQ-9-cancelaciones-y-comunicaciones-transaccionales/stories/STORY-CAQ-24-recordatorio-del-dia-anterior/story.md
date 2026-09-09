@@ -55,7 +55,7 @@ Como cliente final, quiero recibir un recordatorio el día anterior, para reduci
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-24 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-24 y decisiones transversales aplicables.
 
 **Política común de correos de producto**
 
@@ -94,8 +94,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-24 y deci
 | Brecha confirmada y necesidad de ejecución programada | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · correo del 28/02/2026 |
 | Demanda posterior al lanzamiento | `.context/Confluence-corporativo/06-tickets-soporte-resumen.md` · Recordatorios |
 | Exclusión de turnos cancelados y automatización | **Hipótesis técnica** — se deducen del objetivo y de la necesidad de un proceso programado |
-| Evitar un segundo recordatorio | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-24 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-24 |
+| Evitar un segundo recordatorio | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-24 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-24 |
 
 ## Contradicciones detectadas
 
