@@ -74,10 +74,10 @@ son malos, es ruido.
 Mira la diferencia:
 
 ```
-❌  cambios                    ✅  docs/QA-1122-login-mfa
-❌  rama-jorge                 ✅  test/QA-1150-regresion-pagos
-❌  nueva                      ✅  fix/QA-1163-limite-freemium
-❌  actualizaciones            ✅  docs/QA-1170-plan-pruebas-checkout
+❌  cambios                    ✅  docs/QA-1122/login-mfa
+❌  rama-jorge                 ✅  test/QA-1150/regresion-pagos
+❌  nueva                      ✅  fix/QA-1163/limite-freemium
+❌  actualizaciones            ✅  docs/QA-1170/plan-pruebas-checkout
 ```
 
 La columna de la derecha te dice **qué se hizo, de qué tipo era, y a qué pedido respondía**,
@@ -86,18 +86,18 @@ sin abrir un solo archivo.
 ### La estructura
 
 ```
-tipo/ID-DEL-TICKET-descripcion-corta
+tipo/ID-DEL-TICKET/descripcion-corta
 ```
 
 **1 · El tipo** dice de qué se trata el trabajo:
 
 | Prefijo | Cuándo se usa | Ejemplo |
 | :--- | :--- | :--- |
-| `docs/` | Documentación nueva o actualizada | `docs/QA-1122-plan-de-pruebas` |
-| `test/` | Casos de prueba, escenarios, matrices | `test/QA-1150-regresion-pagos` |
-| `prompts/` | Prompts nuevos o mejorados | `prompts/QA-1188-analisis-riesgos` |
-| `fix/` | Corregir algo que estaba mal | `fix/QA-1163-limite-freemium` |
-| `chore/` | Mantenimiento, orden, configuración | `chore/QA-1201-reordenar-carpetas` |
+| `docs/` | Documentación nueva o actualizada | `docs/QA-1122/plan-de-pruebas` |
+| `test/` | Casos de prueba, escenarios, matrices | `test/QA-1150/regresion-pagos` |
+| `prompts/` | Prompts nuevos o mejorados | `prompts/QA-1188/analisis-riesgos` |
+| `fix/` | Corregir algo que estaba mal | `fix/QA-1163/limite-freemium` |
+| `chore/` | Mantenimiento, orden, configuración | `chore/QA-1201/reordenar-carpetas` |
 
 **2 · El ID del ticket** es el que más trabaja, y conviene entender por qué.
 
@@ -105,7 +105,7 @@ Ese identificador —`QA-1122`, `PROJ-505`, el número que use tu equipo— es *
 cose todo lo que rodea al trabajo**:
 
 ```
-Ticket QA-1122  ──┬──  la rama          docs/QA-1122-login-mfa
+Ticket QA-1122  ──┬──  la rama          docs/QA-1122/login-mfa
                   ├──  los commits      docs: QA-1122 agregar criterios de MFA
                   ├──  el Pull Request  "QA-1122 · Plan de pruebas de login con MFA"
                   └──  el cambio incorporado en main
@@ -118,10 +118,14 @@ y quién la tomó. **Sin el ID, la respuesta es "no sé, alguien lo cambió".**
 Es exactamente la misma lógica de trazabilidad que aplicas cuando vinculas un caso de
 prueba a su historia de usuario. Aquí el objeto trazado es el cambio.
 
+El ID va como segmento propio (`docs/QA-1122/login-mfa`), no pegado a la descripción:
+así se lee mejor y las integraciones (GitHub for Jira) lo detectan igual, porque buscan
+la key en cualquier parte del nombre.
+
 ### Reglas prácticas
 
 - **Sin espacios, sin acentos, sin eñes.** Las ramas se escriben en la terminal y esos
-  caracteres dan problemas. `docs/QA-1122-configuracion`, no `docs/QA-1122 configuración`.
+  caracteres dan problemas. `docs/QA-1122/configuracion`, no `docs/QA-1122 configuración`.
 - **Palabras separadas por guiones**, todo en minúscula (salvo el ID, que va como en el
   ticket).
 - **Corta.** Si el nombre no entra de un vistazo, es larga.
@@ -147,7 +151,7 @@ main ──●──────────────────────
 ```bash
 git checkout main
 git pull origin main
-git checkout -b docs/QA-1122-login-mfa
+git checkout -b docs/QA-1122/login-mfa
 ```
 
 **No te saltes el `pull`.** Si partes de una copia vieja, vas a trabajar sobre documentos
@@ -161,7 +165,7 @@ terminada, no uno por día.
 ### Paso 3 · Subir tu rama
 
 ```bash
-git push origin docs/QA-1122-login-mfa
+git push origin docs/QA-1122/login-mfa
 ```
 
 Fíjate que sube **tu rama**, no `main`. Tu trabajo ya está en el servidor —no se pierde si
@@ -382,14 +386,14 @@ git checkout main
 git pull origin main
 
 # 2. Crear la rama con el ID del ticket
-git checkout -b docs/QA-1122-login-mfa
+git checkout -b docs/QA-1122/login-mfa
 
 # 3. Trabajar y guardar (las veces que haga falta)
 git add <archivos>
 git commit -m "docs: agregar criterios de aceptación de MFA"
 
 # 4. Subir la rama
-git push origin docs/QA-1122-login-mfa
+git push origin docs/QA-1122/login-mfa
 
 # 5. Abrir el Pull Request en la web, asignar revisores
 
