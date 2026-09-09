@@ -5,7 +5,7 @@ Este prompt crea y mantiene entidades de testing en Jira + Xray usando las APIs 
 **Requisito previo:** Se debe haber elegido la Ruta B en `.prompts/7-Documentacion CPs/test-documentation.md`, que es el prompt que decide qué casos se cargan y con qué contenido.
 
 **Inputs necesarios:**
-1.  Los casos de prueba de `.context/testing/documentation/[ID-US]/`
+1.  Los casos de prueba de `.context/PBI/epics/*/stories/STORY-[ID-US]-*/test-cases/`
 2.  Credenciales de Xray y de Jira, **desde el `.env` de la raíz del repositorio, nunca pegadas en el chat**. Los nombres de las variables están en `.env.example`.
 
 ---
@@ -37,7 +37,7 @@ Actúa como un agente técnico que crea y mantiene entidades de testing en Jira 
 
 ### **Inputs que debes reunir**
 
-Del usuario o de los archivos de `.context/testing/documentation/`:
+Del usuario o de los archivos de casos que la historia tenga en `.context/PBI/`, dentro de su subcarpeta `test-cases/`:
 
 *   `deployment`: `"cloud"` | `"server_dc"`
 *   `projectKey`: por ejemplo `"ABC"`

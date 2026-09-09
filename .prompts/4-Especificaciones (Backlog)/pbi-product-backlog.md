@@ -26,7 +26,18 @@ Primero, lee `.context/architecture/prd.md`. Ese es tu insumo principal: no me p
 *   **Si tienes el MCP de Atlassian conectado**, y **si tienes un MCP de navegador conectado**. Revisa tus propias herramientas disponibles. Preguntármelo a mí no sirve: es tu entorno, no el mío.
 *   **Si ya hay un backlog empezado**: mira si existe `.context/PBI/epic-tree.md`.
 
-Después pregúntame la **Project Key** de Jira (ej: `MYAPP`). **Si no la tengo, o el proyecto todavía no existe, sigue igual** con el flujo de trabajo: la sección "Sincronización con Jira" te dice cómo.
+Después necesitas la **Project Key** de Jira (ej: `MYAPP`). **Si no la tengo, o el proyecto todavía no existe, sigue igual** con el flujo de trabajo: la sección "Sincronización con Jira" te dice cómo.
+
+> ⚠️ **Antes de preguntar cualquier dato, fíjate si ya lo tienes.** En este orden:
+>
+> 1.  **Mi pedido.** Si te lo di al invocarte, ya está.
+> 2.  **`AGENTS.md`**, en la raíz. Ahí quedan anotadas la Project Key y la dirección del
+>     servidor MCP la primera vez que se verifica la conexión.
+> 3.  **`.context/PBI/epic-tree.md`.** Si ya hay historias con key real —`PROJ-14`— **la
+>     Project Key es el prefijo**: no hace falta preguntarla.
+>
+> **Preguntar algo que está escrito tres carpetas más abajo no es prudencia: es hacerme
+> perder tiempo, y encima invita a que lo conteste mal de memoria.**
 
 ---
 
@@ -70,9 +81,25 @@ El backlog es una **reconstrucción**, no un plan. El software ya existe y funci
 1.  **Documentación del proyecto.** Pregúntame textualmente: *"¿Dónde está la documentación del proyecto? Pasame la ruta de la carpeta o de los archivos."*
     *   Puede ser una carpeta o una lista de archivos sueltos.
     *   **Si te doy una carpeta, lee todos los archivos que haya adentro, incluidas las subcarpetas.** Una carpeta dentro de otra es el lugar donde más seguido se deja de mirar.
+    *   ⚠️ **Pero no leas todo lo que encuentres.** Salta **archivos de credenciales** (`.env` y sus variantes, `*.pem`, `*.key`, `*.p12`, cualquier cosa con "secret", "token" o "credential" en el nombre), **todo lo que el `.gitignore` excluya**, y **los binarios** — imágenes, PDF, comprimidos, `node_modules`. **Un secreto que abres queda en el historial de la conversación**, que es exactamente lo que esos archivos existen para evitar. Si salteaste algo, decímelo por su nombre.
     *   Antes de producir nada, enumérame qué archivos leíste. Si alguno no lo pudiste abrir, dímelo.
     *   Asume que el material **puede contener contradicciones, datos vencidos y huecos**. No promedies valores distintos ni elijas en silencio.
-    *   **Cuando dos documentos se contradigan, gana el más reciente**, y la contradicción se registra igual.
+    *   **Cuando dos fuentes se contradigan, no gana la más reciente: gana la de más autoridad.** La contradicción se registra igual, siempre.
+
+        | | Fuente | Por qué está ahí |
+        | ---: | :--- | :--- |
+        | **1** | Una **decisión vigente de Producto** | Alguien con autoridad decidió, y no se revirtió |
+        | **2** | Un **requisito aprobado** | Está acordado, aunque el sistema todavía no lo cumpla |
+        | **3** | **Evidencia observada** en la aplicación | Es cierto que pasa — pero nadie dijo que deba pasar |
+        | **4** | **Documentación histórica** | Fue verdad cuando se escribió |
+        | **5** | Una **hipótesis** | No la respalda nada |
+
+        > ⚠️ **El escalón 3 es el que hay que respetar aunque incomode.** Un comportamiento
+        > recién observado **no reemplaza un requisito aprobado**: lo contradice, y eso es un
+        > hallazgo — puede ser un defecto del sistema. **Observado no es acordado**, y la
+        > fecha no cambia eso.
+
+        Entre dos fuentes **del mismo escalón**, ahí sí gana la más reciente.
 2.  **Confluence o Jira**, si el **MCP de Atlassian** está conectado. Búscame ahí la documentación de producto y los tickets viejos: un backlog anterior, aunque esté abandonado, dice qué consideraba el equipo que era una Epic.
 3.  **La aplicación**, si hay un **MCP de navegador** conectado y me pediste la dirección. Recorre los flujos principales y anota qué frentes de producto aparecen.
     *   **Este origen es el único que puede encontrar lo que ningún documento nombra**, y en un proyecto con documentación vieja eso es casi seguro que existe.
