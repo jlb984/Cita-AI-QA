@@ -24,7 +24,7 @@ Primero, lee `.context/testing/documentation/[ID-US]/priorizacion-roi.md` y el `
 
 Xray no se puede detectar solo, así que esto sí te lo tengo que decir yo. Pregúntame:
 1.  Si el proyecto de Jira tiene **Xray disponible y operativo**.
-2.  La `Project Key`.
+2.  La `Project Key` — **solo si no la encuentras**: mírala primero en mi pedido, en `AGENTS.md`, o deduécela del prefijo de las keys que ya haya en `epic-tree.md`.
 3.  Las historias objetivo (keys de Jira) para vincular los tests.
 
 **Si no te contesto, o no hay Jira configurado, no te detengas:** toma la Ruta A y anota el estado de sincronización como pendiente.
@@ -63,7 +63,12 @@ Si **SÍ** hay Xray disponible:
 
 ### **Formato de Salida Requerido**
 
-**Escribe los archivos en `.context/testing/documentation/[ID-US]/`.** Si la carpeta no existe, créala. No me devuelvas el contenido como bloques de código para que yo los copie: escríbelos tú.
+**Los casos de prueba se escriben junto a su historia, dentro de `.context/PBI/`.** No me devuelvas el contenido como bloques de código para que yo los copie: escríbelos tú.
+
+**Localiza la carpeta de la historia; no la construyas.** Busca `STORY-[ID-US]-*` dentro de `.context/PBI/epics/*/stories/`. El nombre de la Epic y el de la historia los decidió la Fase 4, y **no se pueden deducir de la key**.
+
+*   **Si la encuentras**, escribe los casos en su subcarpeta `test-cases/`, creándola si no existe.
+*   **Si no la encuentras, detente y dímelo.** Es la misma carpeta de la que tienes que leer el `story.md`: si no está, no hay criterios de aceptación contra los que documentar, y una carpeta inventada al lado deja los casos huérfanos del backlog.
 
 Al terminar, confírmame:
 *   La ruta de cada archivo que escribiste.
@@ -76,9 +81,18 @@ Al terminar, confírmame:
 *   `Xray disponible: SÍ / NO`
 *   `Ruta ejecutada: A (Jira sin Xray) o B (API de Xray)`
 
-**2. Un archivo por caso**, en `.context/testing/documentation/[ID-US]/[ID-CP]-[nombre-kebab].md`
+**2. Un archivo por caso**, en la carpeta de la historia:
 
-Donde `[ID-US]` es la key de la historia (ej: `PROJ-123`) y `[ID-CP]` es la key del test creado. Si todavía no existe, usa un temporal (`CP-TEMP-01`) y actualízalo después.
+```text
+.context/PBI/epics/EPIC-{KEY}-{nombre}/stories/STORY-{ID-US}-{nombre}/
+├── story.md                            (lo escribió la Fase 4)
+└── test-cases/
+    └── [ID-CP]-[nombre-kebab].md       (uno por caso)
+```
+
+Donde `[ID-CP]` es la key del test creado. Si todavía no existe, usa un temporal (`CP-TEMP-01`) y actualízalo después.
+
+> **Los casos viven con su historia, no en una carpeta aparte.** Quien abre la historia para cambiarla tiene al lado las pruebas que ese cambio deja desactualizadas. Es la trazabilidad puesta en el árbol de archivos, antes que en ninguna herramienta.
 
 ```markdown
 # Caso de Prueba: [Título]

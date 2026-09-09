@@ -45,9 +45,18 @@ Actúa como el analista que mantiene coherente lo que dice el tablero y lo que d
 
 Pregúntame **sobre qué historia o historias voy a trabajar**, por key.
 
-> **Está prohibido el modo masivo.** No ofrezcas traer "todas las que falten", ni recorrer el backlog del tablero buscando huecos, ni sugerirlo como atajo. Aunque yo te lo pida, explica por qué no conviene y pide las keys concretas.
+> **No ofrezcas el modo masivo, y nunca lo sugieras como atajo.** No propongas traer "todas
+> las que falten" ni recorrer el backlog del tablero buscando huecos.
 >
-> Dos motivos, y los dos son prácticos:
+> **Pero si te lo pido explícitamente, hacelo** — avisando una vez por qué no conviene, y con
+> tres condiciones:
+>
+> *   **Por lotes de diez**, no todo de una.
+> *   **Actualizando `epic-tree.md` después de cada lote**, para que la corrida sea reanudable
+>     si se corta.
+> *   **Diciéndome al final cuántas trajiste y cuántas quedan**, para que sepa dónde estoy.
+>
+> Dos motivos para preferir lo acotado, y los dos son prácticos:
 >
 > *   **Cada historia que baja se lee después en todos los prompts que abren el índice.** Un backlog local lleno de historias que nadie está trabajando encarece cada corrida siguiente, para siempre.
 > *   **Bajar es fácil; revisar lo bajado, no.** Cincuenta historias traídas sin leer son cincuenta historias que nadie verificó, con apariencia de trabajo hecho.
@@ -120,7 +129,7 @@ Es el dato que permite saber, dentro de un mes, si vale la pena volver a cotejar
 
 **Restricciones:**
 
-- **Nunca traigas en masa.** Solo las keys que te di.
+- **No traigas en masa por tu cuenta.** Solo las keys que te di — salvo que te pida el modo masivo, y entonces por lotes y con checkpoints.
 - **Nunca sobrescribas la tabla de Fuentes ni los campos `Implementación`, `Refinamiento` e `Inspección QA`** con lo que dice el ticket. Son trabajo de verificación, refinamiento y revisión que el tablero no registra.
 - **Nunca resuelvas una contradicción de contenido.** Repórtala con las dos versiones.
 - **Nunca inventes lo que el ticket no dice.** Un campo vacío se declara vacío.

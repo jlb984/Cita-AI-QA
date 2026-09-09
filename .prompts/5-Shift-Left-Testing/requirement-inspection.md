@@ -114,8 +114,23 @@ contra la versión vieja.
 
 > ⚠️ **Y esto se repite, así que tiene que ser idempotente.** Al correr la inspección dos
 > veces sobre la misma historia, **edita el comentario de Shift-Left que ya dejaste** en lugar
-> de agregar otro, y actualiza las secciones existentes en vez de duplicarlas. **Un ticket con
-> cuatro comentarios casi iguales es peor que uno sin comentarios**: nadie sabe cuál vale.
+> de agregar otro. **Un ticket con cuatro comentarios casi iguales es peor que uno sin
+> comentarios**: nadie sabe cuál vale.
+>
+> **Para poder editarlo hay que poder encontrarlo, así que el comentario lleva un marcador
+> en su primera línea**, con la key de la historia:
+>
+> ```
+> <!-- shift-left:PROJ-24 -->
+> ```
+>
+> **Antes de escribir, busca ese marcador en los comentarios del ticket:**
+>
+> | Cuántos encuentras | Qué haces |
+> | :--- | :--- |
+> | **Ninguno** | Creas el comentario, con el marcador |
+> | **Exactamente uno** | Lo editas |
+> | **Más de uno** | 🔴 **Pará y avísame.** No edites al azar ni borres: hubo corridas que duplicaron y hay que mirar cuál vale |
 
 ---
 
@@ -151,6 +166,18 @@ sin una decisión de negocio se deja marcado y se cita en Preguntas abiertas]
 
 ## 3. Valoración de Calidad
 *   **Veredicto:** [Aprobado / Requiere cambios / Bloqueante] — **es el mismo valor que va al campo `Inspección QA` del `story.md`**
+
+**El veredicto no es una impresión: sale de estas reglas, y se aplica la primera que se cumpla.**
+
+| Veredicto | Cuándo |
+| :--- | :--- |
+| **Bloqueante** | Hay una **contradicción sin resolver** con el PRD o con el sistema · o la historia dice `Implementación: No encontrada` · o falta un criterio sin el cual no se puede probar nada |
+| **Requiere cambios** | Hay defectos que **se pueden corregir leyendo** · o queda al menos una pregunta abierta que afecta a un criterio de aceptación |
+| **Aprobado** | Ningún defecto abierto, ninguna pregunta que toque un criterio, y todo valor concreto tiene fuente |
+
+> ⚠️ **`Aprobado` con hipótesis vivas no existe.** Si un criterio se apoya en un valor que
+> nadie confirmó, el veredicto es `Requiere cambios` — aunque la historia esté impecable de
+> redacción. **Lo que falta no es prolijidad: es una decisión.**
 *   **Riesgo:** [Bajo / Medio / Alto]
 
 ## Fuentes

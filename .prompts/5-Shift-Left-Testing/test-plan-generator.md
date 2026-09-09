@@ -43,8 +43,11 @@ Clasifícalos por **Probabilidad** (1-5) e **Impacto** (1-5).
 | Probabilidad × Impacto | Nivel |
 | :--- | :--- |
 | **1 a 6** | Bajo |
-| **8 a 12** | Medio |
+| **7 a 14** | Medio |
 | **15 a 25** | Alto |
+
+**Los rangos son continuos a propósito:** no hay un solo valor entre 1 y 25 que quede sin
+nivel, y así no tienes que razonar qué productos son alcanzables.
 
 > ⚠️ **Con una excepción, y es la que evita el error clásico: un impacto de 5 nunca queda en
 > `Bajo`.** Lo improbable y catastrófico no se descarta por aritmética — se mitiga distinto,
@@ -66,7 +69,21 @@ Define qué tipos de pruebas son necesarios para mitigar esos riesgos.
 *   **Pruebas E2E (UI):** ¿Qué flujos críticos debe recorrer el usuario?
 *   **Pruebas No Funcionales:** ¿Seguridad, Performance, Accesibilidad?
 
-### **3. Herramientas y Datos**
+### **3. Estado del plan**
+
+**Un plan que necesita algo que no existe no es un plan optimista: es un plan que va a fallar
+el día de la ejecución.** Decláralo con uno de estos tres estados, y no lo dejes implícito:
+
+| Estado | Cuándo |
+| :--- | :--- |
+| **Ejecutable** | Todo lo que el plan pide existe hoy |
+| **Ejecutable con limitaciones** | Se puede correr una parte. **Lo que no, va listado como bloqueante** |
+| **Bloqueado** | Falta algo sin lo cual el plan no arranca — un entorno, un acceso, un dato imprescindible |
+
+Cada bloqueante se escribe con **qué impide** y **quién lo tiene que dar**. Un bloqueante sin
+dueño no se resuelve solo.
+
+### **4. Herramientas y Datos**
 *   Sugiere qué herramientas usar (ej: Jest, Playwright, K6, OWASP ZAP).
 *   Define qué datos de prueba específicos necesitamos (ej: "Usuarios con tarjetas caducadas"), **y contrástalo con lo que `test-data-strategy.md` dice que existe**. Si el dato que hace falta no está disponible, eso es un bloqueante del plan, no un detalle: regístralo.
 
@@ -92,7 +109,8 @@ El contenido debe seguir esta estructura:
 ## 1. Matriz de Riesgos del Producto
 | ID | Riesgo | Probabilidad (1-5) | Impacto (1-5) | Nivel | Mitigación |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| R1 | Falla en pasarela de pago | 2 | 5 | 10 (Alto) | Tests E2E exhaustivos |
+| R1 | Fuga de datos en el login | 2 | 5 | **10 · Medio** — impacto máximo | Pruebas de autenticación y revisión de mensajes de error |
+| R2 | Turnos duplicados por concurrencia | 4 | 4 | **16 · Alto** | Prueba de reserva simultánea sobre el mismo horario |
 
 ## 2. Niveles de Prueba (Pyramid)
 *   **Unitarias:** [Lógica de negocio a cubrir]
@@ -103,7 +121,17 @@ El contenido debe seguir esta estructura:
 *   **Seguridad:** [Escenarios de inyección, auth, etc.]
 *   **Performance:** [Carga esperada]
 
-## 4. Necesidades de Entorno y Datos
+## 4. Estado del plan
+
+**Estado:** [Ejecutable | Ejecutable con limitaciones | Bloqueado]
+
+| Bloqueante | Qué impide | Qué hace falta para levantarlo |
+| :--- | :--- | :--- |
+| [Acceso, dato o entorno que falta] | [Qué parte del plan no se puede correr] | [Quién lo tiene que dar] |
+
+*Si no hay ninguno, escribir "Ninguno: el plan se puede ejecutar entero".*
+
+## 5. Necesidades de Entorno y Datos
 > Usa los nombres de entorno reales de `environments.md`. Si un entorno que hace falta no
 > existe, dilo: es un riesgo del plan.
 

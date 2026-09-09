@@ -113,7 +113,14 @@ Al pasar a Gherkin vas a tener que fijar valores que la historia dejaba vagos: u
 
 **Si lo tienes, el orden importa y son cuatro pasos:**
 
-1.  **Compara antes de escribir.** Mira la fecha de última actualización del ticket contra la del `story.md`. **Si Jira está más nuevo, no subas nada:** avísame y sugiere `pbi-sync-from-jira.md`. Subir encima de un cambio que no leíste lo destruye sin avisar.
+1.  **Compara antes de escribir, y compáralo por contenido.** El `story.md` **no tiene una
+    fecha de modificación confiable** — un `pull`, un formateo o un cambio de otra rama la
+    mueven sin que el contenido cambie. Así que:
+    *   Mira el campo `**Última comprobación contra Jira:**` del `story.md`, si lo tiene.
+    *   **Lee el ticket y compara el contenido**: descripción y criterios, campo por campo.
+    *   Si el ticket dice algo que el archivo no, **no subas nada**: avísame y sugiere
+        `pbi-sync-from-jira.md`. Subir encima de un cambio que no leíste lo destruye sin
+        avisar, y **la fecha no te lo va a decir**.
 2.  **Sube la versión refinada**: descripción y escenarios Gherkin.
 3.  **Vuelve a leer el ticket desde Jira.** No confíes en que la escritura salió bien porque no dio error.
 4.  **Comprueba que las dos copias tienen la versión refinada**, y dímelo. Si difieren, dilo y no marques `Sincronizado`.
@@ -132,6 +139,21 @@ Al pasar a Gherkin vas a tener que fijar valores que la historia dejaba vagos: u
 | **Observado completo** | **Cada** fila `Observado` tiene entorno, fecha y una ruta de evidencia **que existe** |
 | **Referencias vivas** | Los archivos y secciones que citas existen. Una cita rota es peor que ninguna |
 | **Formato del archivo** | Ejecuta `git diff --check` y repórtame lo que devuelva |
+| **Integridad del texto** | Ver abajo. **Es la que más se saltea y la que peor se nota tarde** |
+
+### **La comprobación de integridad**
+
+Al reescribir un archivo largo se cortan cosas, y el resultado **se ve bien de lejos**.
+Revísalo explícitamente:
+
+*   **Ninguna oración termina cortada.** Si una línea acaba sin punto y sin continuación,
+    algo se perdió.
+*   **Ninguna tabla queda partida.** Encabezado, separador y filas van seguidos, sin líneas
+    en blanco en el medio, y ninguna fila queda huérfana debajo de otra sección.
+*   **Ninguna sección del formato falta**, y ninguna quedó vacía sin decir *"Ninguna
+    detectada"*.
+*   **Compáralo contra lo que había antes.** Lo que no estabas cambiando tiene que seguir
+    ahí: si el archivo quedó más corto y no borraste nada a propósito, **perdiste algo**.
 
 ## **Paso 6: Resumen y actualización del índice**
 
