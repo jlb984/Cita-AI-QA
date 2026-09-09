@@ -60,7 +60,7 @@ Como profesional que alcanzó el límite, quiero recibir información clara sobr
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-28 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-28 y decisiones transversales aplicables.
 
 * Plan Pro no tendrá precio, beneficios, cobro ni contratación en el release 1.1. La acción solo registra interés.
 * Al alcanzar diez clientes se envía una sola vez el correo: `¡Tu agenda está creciendo! Alcanzaste los 10 clientes de tu plan gratuito. Tus clientes actuales pueden seguir reservando. Si quieres conocer futuras opciones, registra tu interés en el Plan Pro.`
@@ -89,8 +89,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-28 y deci
 | Texto vigente de la llamada a la acción | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · resumen del 03/03/2026 |
 | Registro de interés sin plan pago | `.context/Confluence-corporativo/01-minuta-kickoff.md` · El modelo: freemium; `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 8.3 |
 | Precio, beneficios y cobro | **Pregunta abierta** — el Plan Pro no existe como oferta definida |
-| Envío único del correo por evento | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-28 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-28 |
+| Envío único del correo por evento | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-28 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-28 |
 
 ## Contradicciones detectadas
 
