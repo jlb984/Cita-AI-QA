@@ -125,6 +125,9 @@ Queda fuera del release 1.1. El nombre y correo ingresados deben pertenecer a la
   * Solapamiento: `Este horario se superpone con otro bloque del mismo día.`
   * Cruce de medianoche: `Divide el horario en dos bloques, uno para cada día.`
 * El guardado es atómico: reemplaza toda la configuración o conserva íntegramente la anterior y muestra `No pudimos guardar tu disponibilidad. Intenta nuevamente.`
+* Sesión QA 09/09/2026 (pendiente de ratificación PO): desactivar un día equivale a quitar sus intervalos dentro del reemplazo atómico; los turnos `confirmed` existentes no se cancelan y los slots futuros de ese día dejan de ofrecerse.
+* Sesión QA 09/09/2026 (pendiente de ratificación PO): sin tope funcional de intervalos por día en este release; se renderizan en orden de inicio.
+* Sesión QA 09/09/2026 (pendiente de ratificación PO): rige el texto aprobado para fin no posterior al inicio; la implementación observada (`La hora de inicio debe ser anterior a la de fin en Martes`) debe converger a él, o PO enmienda esta decisión.
 
 ### CAQ-12 — Duración estándar
 
@@ -141,6 +144,7 @@ Queda fuera del release 1.1. El nombre y correo ingresados deben pertenecer a la
 * Un bloqueo puede cruzar medianoche porque utiliza fechas e instantes completos.
 * Los turnos ya confirmados permanecen confirmados. Antes de guardar se muestra cuántos quedan dentro del bloqueo y se advierte que deben cancelarse manualmente si corresponde.
 * El bloqueo impide únicamente nuevas reservas. Eliminarlo recalcula los slots que no estén ocupados por turnos.
+* Sesión QA 09/09/2026 (pendiente de ratificación PO): el motivo admite hasta 250 caracteres, igual que el motivo de cancelación; excederlo rechaza el guardado sin persistir. El texto exacto del mensaje queda pendiente de observación.
 
 ### CAQ-14 — Registro manual de turno
 
@@ -159,6 +163,7 @@ Queda fuera del release 1.1. El nombre y correo ingresados deben pertenecer a la
 * La vista pagina de a 20 turnos y permite filtrar por rango de fechas y buscar por nombre o correo.
 * Los turnos `cancelled` quedan fuera de `Próximas Citas`; su historial se incorporará en una Story separada.
 * El estado vacío observado se conserva con los textos actuales.
+* Sesión QA 09/09/2026 (pendiente de ratificación PO): `Citas Hoy` cuenta turnos `confirmed` con inicio hoy en la zona del profesional; todo lo contado debe listarse en `Próximas Citas`. La divergencia observada el 09/09/2026 es defecto, no criterio.
 
 ## 5. Página pública y auto-reserva
 
