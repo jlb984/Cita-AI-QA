@@ -3,7 +3,9 @@
 **ID:** CAQ-26
 **Epic:** CAQ-10
 **Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** producción · 09/09/2026
+**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA
 **Refinamiento:** Refinado
 **Inspección QA:** Bloqueante
 
@@ -73,7 +75,7 @@ Como profesional, quiero cargar un cliente manualmente, para mantener completo m
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-26 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-26 y decisiones transversales aplicables.
 
 * `Nuevo Cliente` debe abrir un formulario con nombre y correo bajo las reglas de CAQ-3. La falta de respuesta observada se considera defecto.
 * Si el correo ya existe para el profesional, no se crea ni actualiza otro registro. Se muestra `Este cliente ya existe en tu listado.` y se ofrece abrirlo.
@@ -99,10 +101,11 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-26 y deci
 | Carga manual desde el panel | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 2.1 |
 | Nombre, correo y unicidad | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Tablas |
 | Aplicación del límite al alta manual | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · secciones 8.1 y 8.2 |
-| Aparición inmediata en el listado | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-26 |
-| Rechazo de campos inválidos | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-26 |
-| La acción «Nuevo Cliente» no produjo un formulario ni un cambio visible | **Observado** — producción, 30/08/2026 mediante Playwright; no se realizó ningún alta. Evidencia: `.context/architecture/prd.md` · Feature 5 y Fuentes |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-26 |
+| Aparición inmediata en el listado | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-26 |
+| Rechazo de campos inválidos | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-26 |
+| La acción «Nuevo Cliente» no produjo un formulario ni un cambio visible | **Observado** — producción, 30/08/2026 y reconfirmado 09/09/2026 mediante Playwright; no se realizó ningún alta. Evidencia: `evidence/2026-09-09-clientes-nuevo-sin-dialogo-fail.png` |
+| Reconfirmación 09/09/2026: `Nuevo Cliente` sigue sin abrir diálogo, sin errores en consola | **Observado** — producción, 09/09/2026. Evidencia: `evidence/2026-09-09-clientes-nuevo-sin-dialogo-fail.png` |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-26 |
 
 ## Contradicciones detectadas
 
