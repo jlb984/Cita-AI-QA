@@ -60,7 +60,7 @@ Como cliente final, quiero conservar mis datos si otro cliente toma el horario, 
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-19 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-19 y decisiones transversales aplicables.
 
 * La base debe garantizar como máximo un turno `confirmed` por profesional e instante. La garantía cubre reserva pública, alta manual y reintentos.
 * Mensaje aprobado: `Este horario acaba de ser reservado por otra persona. Elige otro horario para continuar.`
@@ -87,7 +87,7 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-19 y deci
 | Rechazo, mensaje, actualización y conservación de datos | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · RN-02 |
 | Garantía de no superposición | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · RN-01 |
 | Riesgo de implementación no transaccional | `.context/Confluence-corporativo/04-notas-tecnicas.md` · La reserva; `.context/Confluence-corporativo/06-tickets-soporte-resumen.md` · Horarios y disponibilidad |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-19 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-19 |
 
 ## Contradicciones detectadas
 
