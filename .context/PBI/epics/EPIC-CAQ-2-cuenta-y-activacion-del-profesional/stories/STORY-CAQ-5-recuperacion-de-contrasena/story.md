@@ -2,8 +2,10 @@
 
 **ID:** CAQ-5
 **Epic:** CAQ-2
-**Implementación:** Sin verificar
-**Estado de sincronización:** Sincronizado con Jira (`CAQ`)
+**Implementación:** Parcial
+**Modo de exploración:** Navegador automatizado
+**Entorno observado:** Producción · 2026-09-07 / 2026-09-08 / 09/09/2026
+**Estado de sincronización:** PENDIENTE DE SUBIR A JIRA
 **Refinamiento:** Refinado
 **Inspección QA:** Aprobado
 
@@ -27,21 +29,15 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 ### Escenario 1: Solicitud para un correo registrado
 
 **Given** que existe una cuenta profesional asociada al correo informado
-
 **When** el profesional solicita recuperar su contraseña
-
 **Then** el sistema muestra el mensaje «Si el email existe en nuestro sistema, recibirás un enlace para recuperar tu contraseña»
-
 **And** envía al correo registrado un enlace con un token de un solo uso
 
 ### Escenario 2: Solicitud para un correo no registrado
 
 **Given** que no existe una cuenta asociada al correo informado
-
 **When** el usuario solicita recuperar la contraseña
-
 **Then** el sistema muestra el mensaje «Si el email existe en nuestro sistema, recibirás un enlace para recuperar tu contraseña»
-
 **And** la respuesta visible no revela que el correo no está registrado
 
 ### Escenario 3: Solicitud con correo vacío
@@ -59,31 +55,22 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 ### Escenario 5: Cambio de contraseña con un token vigente
 
 **Given** que el profesional abre un enlace de recuperación no utilizado antes de que transcurra una hora desde su emisión
-
 **When** establece una nueva contraseña
-
 **Then** el sistema actualiza la contraseña de la cuenta
-
 **And** permite recuperar el acceso con la nueva contraseña
 
 ### Escenario 6: Intento con un token vencido
 
 **Given** que transcurrió una hora o más desde la emisión del token de recuperación
-
 **When** el profesional intenta utilizar el enlace
-
 **Then** el sistema rechaza el cambio de contraseña
-
 **And** no modifica la contraseña de la cuenta
 
 ### Escenario 7: Reutilización de un token
 
 **Given** que el token de recuperación ya fue utilizado para cambiar la contraseña
-
 **When** se intenta utilizar nuevamente el mismo enlace
-
 **Then** el sistema rechaza el cambio de contraseña
-
 **And** no modifica la contraseña de la cuenta
 
 ### Escenario 8: Invalidar enlaces anteriores
@@ -119,7 +106,7 @@ Como profesional, quiero solicitar un enlace de recuperación mediante mi correo
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-5 y decisiones transversales aplicables.
 
 * La nueva contraseña usa exactamente la política de CAQ-3 y no puede ser igual a la contraseña anterior.
 * Una nueva solicitud invalida todos los enlaces de recuperación anteriores de esa cuenta.
@@ -130,20 +117,11 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 y decis
   * Token inválido, vencido o usado: `Este enlace ya no es válido. Solicita uno nuevo.`
 * Después del cambio exitoso se invalidan las sesiones existentes y se redirige al login. No se inicia sesión automáticamente.
 
-## Notas de QA
+## Comportamiento observado
 
-* Usar una cuenta existente y un correo no registrado bajo control del equipo; comparar que ambos casos presenten exactamente el mismo mensaje visible.
-* Verificar los límites temporales inmediatamente antes y a partir de una hora desde la emisión, utilizando control del reloj o tokens preparados en un entorno de prueba.
-* Comprobar el uso único intentando abrir el mismo enlace después de un cambio exitoso.
-* Verificar que el correo de recuperación pertenece al flujo de autenticación gestionado por Supabase y no a los correos de producto enviados mediante Resend.
-* No utilizar cuentas, correos ni credenciales reales; el único entorno documentado es producción y este refinamiento no autoriza generar correos ni modificar contraseñas allí.
-* La implementación continúa `Sin verificar`; el uso de PKCE y la vigencia documentada no prueban el comportamiento actual.
-
-## Inspección Shift-Left
-
-**Resultado:** Aprobado
-
-**Reporte:** `.context/testing/inspections/inspeccion-CAQ-5.md`
+| Qué hace | Evidencia | Qué decía la documentación |
+| :--- | :--- | :--- |
+| En la pantalla `/login`, la interfaz muestra el enlace `¿Olvidaste tu contraseña?` junto al campo de Contraseña para iniciar el flujo de restablecimiento. | `evidence/2026-09-07-enlace-olvidaste-contrasena.png` | Coincide con la sección 3.3 de la especificación funcional (`.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md`). |
 
 ## Fuentes
 
@@ -152,15 +130,15 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 y decis
 | La recuperación se solicita mediante el correo electrónico | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.3 |
 | La respuesta visible es idéntica exista o no la cuenta | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.3; `.context/architecture/prd.md` · Feature 1 y Requisitos No Funcionales |
 | Mensaje «Si el email existe en nuestro sistema, recibirás un enlace para recuperar tu contraseña» | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.3 |
+| Enlace `¿Olvidaste tu contraseña?` visible en el formulario de login | **Observado** — Producción, 2026-09-07. Evidencia: `evidence/2026-09-07-enlace-olvidaste-contrasena.png` |
+| Formulario de recupero accesible con sesión (sin envío, sin captura) | Sesión 09/09/2026: `.context/testing/exploratory/ui/session-2026-09-09-cuenta-y-activacion.md` |
 | El enlace contiene un token de un solo uso que vence a la hora | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 3.3; `.context/Confluence-corporativo/04-notas-tecnicas.md` · Auth |
-| El flujo de cambio de contraseña utiliza PKCE | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Auth |
 | Los correos de recuperación pertenecen a autenticación y permanecen en Supabase | `.context/Confluence-corporativo/05-hilo-mail-cambio-de-alcance.md` · correo del 28/02/2026 |
-| Rechazar una solicitud cuando el correo está vacío o tiene formato inválido | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-5 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-5 |
 
 ## Contradicciones detectadas
 
-* Ninguna pendiente después de aplicar las decisiones de Producto para el release 1.1.
+* Ninguna detectada en la entrada del flujo en login.
 
 ## Preguntas abiertas
 
