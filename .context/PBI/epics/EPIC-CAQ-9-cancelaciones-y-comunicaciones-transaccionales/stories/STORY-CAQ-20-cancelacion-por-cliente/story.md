@@ -65,7 +65,7 @@ Como cliente final, quiero cancelar mediante el enlace de mi correo, para libera
 
 ## Decisiones de Producto incorporadas
 
-Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 y decisiones transversales aplicables.
+Fuente vigente: `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-20 y decisiones transversales aplicables.
 
 * El enlace contiene un token aleatorio de al menos 256 bits; en la base se conserva solamente su hash.
 * El token es válido desde la confirmación hasta el límite de cancelación de 2 horas antes del turno.
@@ -94,8 +94,8 @@ Fuente vigente: `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 y deci
 | Enlace único sin cuenta | `.context/Confluence-corporativo/01-minuta-kickoff.md` · Los dos usuarios del sistema; `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 6.1 |
 | Restricción temporal, estado y liberación | `.context/Confluence-corporativo/03-especificacion-funcional-v0.3.md` · sección 6.3 |
 | Riesgo del endpoint público | `.context/Confluence-corporativo/04-notas-tecnicas.md` · Endpoints |
-| No repetir efectos al reutilizar un enlace | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 |
-| Reglas aprobadas para el release 1.1 | `.context/PBI/decisiones-po-proximo-release.md` · CAQ-20 |
+| No repetir efectos al reutilizar un enlace | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-20 |
+| Reglas aprobadas para el release 1.1 | `.context/product-decisions/decisiones-po-proximo-release.md` · CAQ-20 |
 
 ## Contradicciones detectadas
 
