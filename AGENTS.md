@@ -98,6 +98,14 @@ Write project documentation in Spanish (see **Language** above), using UTF-8, AT
 
 For documentation changes, verify rendered headings, tables, code fences, paths, and links. For prompt changes, execute the affected flow when possible and confirm prerequisite checks, output format, phase chaining, and the intended `.context/` destination. Record what was actually validated; do not imply successful Jira, MCP, API, or browser execution without evidence.
 
+### Test client email
+
+For any customer-facing test flow — registration, booking, notification, cancellation, or email-link verification — use a public Mailinator test inbox, never a personal or real customer address. The standard example is `PruebaQA@mailinator.com`.
+
+To inspect messages sent to that address, open `https://www.mailinator.com/v4/public/inboxes.jsp?trialshow=true`, enter `PruebaQA` (without `@mailinator.com`) in the inbox field, and select **GO**. Record only the test inbox alias and sanitized evidence; do not use public inboxes for real customer data or communications.
+
+For authenticated professional test flows, use the test user `jbergandi@ecosistemas.com.ar`. Its password remains a secret and must not be added to this file, a prompt, documentation, or the conversation.
+
 ## Commit & Pull Request Guidelines
 
 Never work directly on `main`. Use branches such as `docs/US-1122/login`, `prompts/mejora-analisis`, `test/regresion-pagos`, or `fix/typo-readme`. Follow the history's Conventional Commit style: `docs(context): ...`, `feat(prompts): ...`, or `chore(repo): ...`. Pull requests should explain the purpose, list affected phases or paths, link the relevant issue/Jira item when available, and describe validation. Include screenshots only when rendered or visual output changed.

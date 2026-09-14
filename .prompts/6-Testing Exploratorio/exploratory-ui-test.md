@@ -42,6 +42,19 @@ Antes de preguntarme nada, lee lo que ya está escrito:
 *   `.context/infrastructure/test-data-strategy.md` — de ahí salen los usuarios y roles de prueba. **Nunca me pidas una contraseña por chat ni abras el `.env` para leerla:** vive en el `.env` de la raíz (`TEST_USER_PASSWORD`, ver `.env.example`) y se referencia como variable.
 *   `.context/PBI/epic-tree.md` — muéstrame las historias disponibles y déjame elegir cuál probar.
 
+### Correos de clientes de prueba
+
+Cuando una prueba requiera crear, reservar o notificar a un cliente, usa exclusivamente una dirección pública de prueba con dominio `@mailinator.com`; nunca una dirección personal o de un cliente real. Por ejemplo: `PruebaQA@mailinator.com`.
+
+Para comprobar los correos enviados a esa cuenta:
+
+1. Abre `https://www.mailinator.com/v4/public/inboxes.jsp?trialshow=true`.
+2. En el campo **inbox field** (`#inbox_field`), ingresa solo el nombre del buzón, sin `@mailinator.com`: para el ejemplo, `PruebaQA`.
+3. Selecciona **GO**.
+4. Abre el mensaje recibido y verifica destinatario, asunto, contenido, enlaces y el resultado de la acción que corresponda.
+
+Registra en la sesión solo el alias del buzón de prueba y la evidencia sin datos personales. No uses Mailinator para cuentas, citas o comunicaciones reales.
+
 Solo entonces pregúntame lo que no está escrito en ningún lado: **el foco de la sesión** y, si aplica, si hay documentación de API conocida.
 
 **Comprueba tú mismo si tienes el MCP de Playwright conectado.** Revisa tus herramientas disponibles; no me lo preguntes a mí.

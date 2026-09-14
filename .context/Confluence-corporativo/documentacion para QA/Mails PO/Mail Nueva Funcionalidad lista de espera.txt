@@ -1,0 +1,21 @@
+Hola Jorge,
+
+Como hablamos en la última reunión, queremos incorporar una lista de espera para los clientes que ingresan al perfil público de un profesional y no encuentran turnos disponibles.
+
+La idea es que, cuando una fecha no tenga horarios, el cliente pueda dejar su nombre, email, teléfono opcional y seleccionar si prefiere un turno por la mañana, por la tarde o en cualquier horario. Al registrarse, debería recibir una confirmación por email.
+
+Si posteriormente se cancela una cita y se libera un horario compatible, el sistema debe avisar automáticamente al primer cliente de la lista que cumpla con la fecha y preferencia horaria. Queremos respetar el orden de inscripción.
+
+El turno debería quedar reservado para esa persona durante 30 minutos. El email tendrá un enlace para confirmar la reserva. Si confirma dentro de ese plazo, se genera la cita. Si no lo hace, el turno debe ofrecerse al siguiente cliente y, si no quedan interesados, volver a mostrarse como disponible.
+
+No queremos crear automáticamente una cita cuando alguien se anota en la lista. Tampoco debería contabilizarse como cliente para el límite del plan gratuito hasta que confirme la reserva.
+
+Una misma persona no debería poder anotarse más de una vez para el mismo profesional y fecha. También debe poder abandonar la lista mediante un enlace enviado por email.
+
+El profesional debería poder consultar desde su panel quiénes están esperando, para qué fecha, su preferencia horaria y el estado de cada solicitud.
+
+Para esta primera versión solo utilizaremos notificaciones por email. No incluiremos WhatsApp, SMS, pagos, prioridades VIP, reprogramación automática, reservas sin confirmación ni listas compartidas entre profesionales.
+
+Los posibles estados que estuvimos considerando son: esperando disponibilidad, turno ofrecido, reserva confirmada, oferta vencida y solicitud cancelada.
+
+Por favor, toma esta información para analizar la funcionalidad y preparar la historia o las historias de usuario necesarias, junto con sus criterios de aceptación y las preguntas que debamos resolver durante el próximo refinamiento.

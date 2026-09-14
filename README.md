@@ -77,6 +77,14 @@ Este proyecto está diseñado para ser tu **"Laboratorio de QA"**.
 
 ---
 
+## Datos de prueba de clientes
+
+Para flujos de clientes —registro, reserva, notificaciones, cancelaciones y verificación de enlaces por correo— se utilizan buzones públicos de prueba de **Mailinator**, nunca direcciones personales ni de clientes reales.
+
+El ejemplo estándar es `PruebaQA@mailinator.com`. Para consultar los mensajes enviados, abre [Mailinator](https://www.mailinator.com/v4/public/inboxes.jsp?trialshow=true), ingresa `PruebaQA` en el campo del buzón (sin `@mailinator.com`) y selecciona **GO**. Registra únicamente evidencia saneada y no uses estos buzones para datos o comunicaciones reales.
+
+---
+
 ## 📚 Las Guías
 
 | Guía | Para qué |
