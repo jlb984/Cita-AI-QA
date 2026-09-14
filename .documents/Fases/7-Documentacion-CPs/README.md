@@ -27,12 +27,12 @@ Esto asegura que si cambian los requisitos, sabemos qué pruebas actualizar.
     *   *Nota:* Si utilizas **Xray** y dado que aun no disponemos de un MCP oficial, utiliza el script `xray-api.md` ubicado en la carpeta de prompts para interactuar con su API.
 
 ## 📝 Entregables Esperados
-Al finalizar esta fase tendrás, en `.context/testing/documentation/[ID-US]/`:
+Al finalizar esta fase tendrás, en `.context/testing/documentation/[ID-US]/`, el análisis y la priorización; y junto a cada historia, sus casos:
 
-| Archivo | Lo escribe |
-| :--- | :--- |
-| `analisis-escenarios.md` | `test-analysis.md` |
-| `priorizacion-roi.md` | `test-prioritization.md` |
-| `[ID-CP]-[nombre-kebab].md` (uno por caso) | `test-documentation.md` |
+| Archivo | Lo escribe | Dónde queda |
+| :--- | :--- | :--- |
+| `analisis-escenarios.md` | `test-analysis.md` | `.context/testing/documentation/[ID-US]/` |
+| `priorizacion-roi.md` | `test-prioritization.md` | `.context/testing/documentation/[ID-US]/` |
+| `[ID-CP]-[nombre-kebab].md` (uno por caso) | `test-documentation.md` | `.context/PBI/epics/*/stories/STORY-[ID-US]-*/test-cases/` |
 
 Los casos quedan **vinculados a su historia de usuario**: un caso de prueba sin historia vinculada no está terminado.
